@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Van-lifers — Vanlife Guides, Self-Build & Power</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #fbf9f5;
+      --ink: #1e1b18;
+      --muted: #6b625a;
+      --accent: #d45b2c;
+      --accent-dark: #b84a20;
+      --card-bg: #ffffff;
+      --line: rgba(30, 27, 24, 0.1);
+      --radius: 16px;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, 90%); margin: 0 auto; }
+
+    /* HEADER */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(251, 249, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .logo { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.92rem; font-weight: 500; color: var(--muted); transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--accent); transition: width 0.25s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--ink); }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 92vh; display: flex; align-items: center; color: #fff;
+      background:
+        linear-gradient(to bottom, rgba(28, 20, 12, 0.35), rgba(28, 20, 12, 0.8)),
+        url('https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat;
+      padding-top: 68px;
+    }
+    .hero-content { max-width: 720px; padding: 4rem 0; }
+    .hero .kicker { display: inline-block; font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.5rem 1rem; border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 999px; margin-bottom: 1.5rem; backdrop-filter: blur(4px); }
+    .hero h1 { font-family: var(--font-serif); font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.08; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
+    .hero p { font-size: clamp(1rem, 2vw, 1.15rem); color: rgba(255, 255, 255, 0.9); max-width: 560px; margin-bottom: 2rem; }
+
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; border-radius: 999px; font-size: 0.92rem; font-weight: 600; transition: all 0.25s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212, 91, 44, 0.35); }
+    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255, 255, 255, 0.7); }
+    .btn-outline:hover { background: #fff; color: var(--ink); border-color: #fff; }
+
+    /* SECTION HEADS */
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    .section-head .eyebrow { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; display: block; margin-bottom: 0.6rem; }
+    .section-head h2 { font-family: var(--font-serif); font-size: clamp(1.9rem, 4vw, 2.8rem); letter-spacing: -0.02em; margin-bottom: 0.8rem; }
+    .section-head p { color: var(--muted); max-width: 640px; margin: 0 auto; font-size: 0.95rem; }
+
+    /* VANLIFE GUIDE */
+    .vanlife-section { padding: 5rem 0; background: #f5f1ea; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .selfbuild-section { padding: 5rem 0; background: #f0ebe2; border-bottom: 1px solid var(--line); }
+    .vanlife-intro { max-width: 820px; margin: 0 auto 3rem; text-align: center; }
+    .vanlife-intro .alert { background: #fff5ee; border-left: 4px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; text-align: left; font-size: 0.9rem; color: var(--ink); margin-top: 1.5rem; }
+    .vanlife-intro .alert strong { color: var(--accent-dark); }
+
+    /* STATS PANEL */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin: 1.5rem 0 2rem; }
+    .stat-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.4rem 1rem; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .stat-card .stat-num { font-family: var(--font-serif); font-size: 1.9rem; color: var(--accent); line-height: 1.05; letter-spacing: -0.02em; }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
+
+    /* COLLAPSIBLE MAP PANEL */
+    .map-panel { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); margin: 0 0 1.75rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04); overflow: hidden; }
+    .map-panel summary { list-style: none; cursor: pointer; padding: 1.15rem 1.35rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; transition: background 0.2s; }
+    .map-panel summary::-webkit-details-marker { display: none; }
+    .map-panel summary:hover { background: #faf7f2; }
+    .map-panel summary .sum-title { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; font-family: var(--font-serif); font-size: 1.08rem; letter-spacing: -0.01em; }
+    .map-panel summary .sum-sub { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+    .map-panel summary .chev { color: var(--accent); font-size: 1rem; transition: transform 0.25s ease; flex-shrink: 0; }
+    .map-panel[open] summary .chev { transform: rotate(180deg); }
+    .map-body { padding: 0 1.35rem 1.35rem; }
+    .map-frame { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #ececec; }
+    .map-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .map-note { font-size: 0.8rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.6; }
+    .map-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.9rem; }
+    .map-open { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: 999px; transition: all 0.2s; background: #fbf9f5; }
+    .map-open:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* OPERATORS */
+    .operator-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .operator-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .operator-card h4 { font-family: var(--font-serif); font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .operator-card .op-meta { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; margin-bottom: 0.65rem; }
+    .operator-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .operator-card a { font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-top: auto; }
+
+    /* SELF-BUILD SECTION */
+    .build-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .build-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.04); display: flex; flex-direction: column; }
+    .build-card h4 { font-family: var(--font-serif); font-size: 1.15rem; margin-bottom: 0.35rem; }
+    .build-card .build-tag { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 999px; display: inline-block; align-self: flex-start; margin-bottom: 0.7rem; background: #fdf3d8; color: #8a6a1e; }
+    .build-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; flex-grow: 1; }
+    .build-card .build-spec { font-size: 0.78rem; color: var(--ink); background: #f5f1ea; padding: 0.6rem 0.8rem; border-radius: 8px; margin-top: 0.9rem; line-height: 1.5; }
+
+    /* BUDGET TABLE */
+    .budget-table-wrap { overflow-x: auto; margin: 1.5rem 0; border-radius: var(--radius); border: 1px solid var(--line); }
+    .budget-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; background: var(--card-bg); }
+    .budget-table th { text-align: left; padding: 0.9rem 1rem; background: #f5f1ea; font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--line); white-space: nowrap; }
+    .budget-table td { padding: 0.9rem 1rem; border-bottom: 1px solid var(--line); color: var(--muted); vertical-align: top; }
+    .budget-table tr:last-child td { border-bottom: 0; }
+    .budget-table .money { font-weight: 600; color: var(--accent); white-space: nowrap; }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; display: grid; gap: 0.6rem; margin: 1rem 0; }
+    .checklist li { background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem 1rem 0.8rem 2.4rem; font-size: 0.88rem; color: var(--muted); position: relative; line-height: 1.55; }
+    .checklist li::before { content: '✓'; position: absolute; left: 0.9rem; top: 0.8rem; color: var(--accent); font-weight: 700; font-size: 1rem; }
+
+    /* SEARCH PANEL */
+    .search-panel { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; margin: 1.5rem 0; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04); }
+    .search-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 0.9rem; }
+    .search-input { flex: 1 1 240px; padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: 10px; font: inherit; font-size: 0.9rem; background: #fbf9f5; color: var(--ink); outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: var(--accent); }
+    .radius-select { padding: 0.75rem 1rem; border: 1px solid var(--line); border-radius: 10px; font: inherit; font-size: 0.85rem; background: #fbf9f5; color: var(--ink); cursor: pointer; }
+    .search-status { font-size: 0.85rem; color: var(--muted); }
+    .price-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.6rem; font-style: italic; }
+
+    /* QUICK JUMP LINKS */
+    .quick-jumps { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; align-items: center; }
+    .quick-jumps .qj-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-right: 0.25rem; }
+    .quick-jumps a { font-size: 0.76rem; font-weight: 600; padding: 0.35rem 0.75rem; border-radius: 999px; border: 1px solid var(--line); background: #fff; transition: all 0.2s; }
+    .quick-jumps a:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+    /* CATEGORY CHIPS */
+    .cat-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+    .chip { font-size: 0.8rem; font-weight: 600; padding: 0.45rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: #fbf9f5; color: var(--ink); cursor: pointer; transition: all 0.2s; }
+    .chip:hover { border-color: var(--ink); transform: translateY(-1px); }
+    .chip.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* CATEGORY GROUPS */
+    .cat-group { margin-top: 2.5rem; }
+    .cat-group-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--line); }
+    .cat-group-head h3 { font-family: var(--font-serif); font-size: 1.35rem; letter-spacing: -0.01em; }
+    .cat-group-head .count { font-size: 0.75rem; color: var(--muted); font-weight: 500; background: #fbf9f5; padding: 0.15rem 0.6rem; border-radius: 999px; border: 1px solid var(--line); }
+
+    /* STOPOVER CARDS */
+    .stopover-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .stopover-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04); transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--line); display: flex; flex-direction: column; }
+    .stopover-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .stopover-card .type-badge { display: inline-block; align-self: flex-start; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 0.3rem 0.7rem; border-radius: 999px; margin-bottom: 0.75rem; }
+    .type-badge.pub { background: #fde8dd; color: #b84a20; }
+    .type-badge.farm { background: #e3f0e0; color: #4a7a3d; }
+    .type-badge.park { background: #e0e8f5; color: #3d5a8a; }
+    .type-badge.canal { background: #e5f0f5; color: #3d7a8a; }
+    .type-badge.campsite { background: #e0f0f5; color: #2c6e7f; }
+    .type-badge.adults { background: #f5e0e8; color: #8a3d5a; }
+    .type-badge.aire { background: #efe9f5; color: #55407a; }
+    .type-badge.stellplatz { background: #f0eae0; color: #6b5a3d; }
+    .type-badge.wild { background: #e8f0e8; color: #3a6b4a; }
+
+    .stopover-card h3 { font-family: var(--font-serif); font-size: 1.15rem; margin-bottom: 0.4rem; }
+    .stopover-card .location { font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-bottom: 0.75rem; }
+    .stopover-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+    .stopover-foot { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: auto; padding-top: 1rem; border-top: 1px dashed var(--line); flex-wrap: wrap; }
+    .price { font-size: 0.82rem; font-weight: 600; color: var(--ink); }
+    .map-link { font-size: 0.8rem; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
+    .map-link:hover { gap: 0.55rem; }
+
+    /* WILD CAMPING NOTE */
+    .wild-note { background: #f0f7f0; border-left: 4px solid #4a7a3d; padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; font-size: 0.88rem; color: var(--ink); margin-top: 1.5rem; line-height: 1.65; }
+    .wild-note strong { color: #3a6b4a; }
+
+    /* PLACES */
+    .places-list { list-style: none; margin-top: 1.5rem; display: grid; gap: 1rem; }
+    .places-list li { background: var(--card-bg); border-radius: 12px; padding: 1.1rem 1.3rem; font-size: 0.9rem; color: var(--muted); border: 1px solid var(--line); line-height: 1.6; }
+    .places-list li strong { color: var(--ink); display: block; margin-bottom: 0.2rem; font-size: 0.95rem; }
+    .places-list li a { color: var(--accent); font-weight: 600; font-size: 0.82rem; }
+
+    /* APP CARDS */
+    .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .app-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--line); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+    .app-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .app-card h4 { font-family: var(--font-serif); font-size: 1.12rem; margin-bottom: 0.25rem; line-height: 1.3; }
+    .app-card .app-tagline { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 600; margin-bottom: 0.6rem; }
+    .app-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .app-price { font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.9rem; }
+    .store-btns { display: flex; gap: 0.5rem; margin-top: auto; flex-wrap: wrap; padding-top: 0.9rem; border-top: 1px dashed var(--line); }
+    .store-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 600; padding: 0.5rem 0.95rem; border-radius: 999px; border: 1px solid var(--line); background: #fbf9f5; color: var(--ink); transition: all 0.2s; }
+    .store-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-2px); }
+    .store-btn svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
+    /* SOLAR KIT */
+    .kit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .kit-card { background: var(--card-bg); border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--line); box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
+    .kit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .kit-badge { display: inline-block; align-self: flex-start; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 0.3rem 0.7rem; border-radius: 999px; margin-bottom: 0.8rem; }
+    .kit-badge.solar { background: #fdf3d8; color: #8a6a1e; }
+    .kit-badge.ctrl  { background: #e0e8f5; color: #3d5a8a; }
+    .kit-badge.inv   { background: #e3f0e0; color: #4a7a3d; }
+    .kit-badge.wire  { background: #ececec; color: #555; }
+    .kit-card h3 { font-family: var(--font-serif); font-size: 1.12rem; margin-bottom: 0.3rem; line-height: 1.3; }
+    .kit-price { font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-bottom: 0.7rem; }
+    .kit-card p { font-size: 0.86rem; color: var(--muted); margin-bottom: 0.9rem; line-height: 1.6; }
+    .kit-specs { list-style: none; display: grid; gap: 0.4rem; margin-top: auto; padding-top: 0.9rem; border-top: 1px dashed var(--line); }
+    .kit-specs li { font-size: 0.8rem; color: var(--muted); padding-left: 1.1rem; position: relative; line-height: 1.5; }
+    .kit-specs li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .kit-link { display: inline-block; margin-top: 0.8rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); }
+
+    .power-note { background: #fff5ee; border-left: 4px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; font-size: 0.88rem; color: var(--ink); margin-top: 2rem; line-height: 1.65; }
+    .power-note strong { color: var(--accent-dark); }
+
+    .solo-note { background: #fdf0f4; border-left: 4px solid #b0567a; padding: 1rem 1.25rem; border-radius: 0 10px 10px 0; font-size: 0.88rem; color: var(--ink); margin-top: 2rem; line-height: 1.65; }
+    .solo-note strong { color: #8a3d5a; }
+
+    .tips-box { background: var(--ink); color: rgba(255, 255, 255, 0.85); border-radius: var(--radius); padding: 2rem; margin-top: 2.5rem; }
+    .tips-box h3 { font-family: var(--font-serif); color: #fff; font-size: 1.4rem; margin-bottom: 1rem; }
+    .tips-box ul { list-style: none; display: grid; gap: 0.9rem; }
+    .tips-box li { font-size: 0.9rem; line-height: 1.6; padding-left: 1.6rem; position: relative; }
+    .tips-box li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .tips-box li strong { color: #fff; }
+
+    .guide-subhead { margin-top: 3.5rem; margin-bottom: 0.5rem; }
+    .guide-subhead h3 { font-family: var(--font-serif); font-size: clamp(1.4rem, 3vw, 1.9rem); letter-spacing: -0.02em; }
+    .guide-subhead p { color: var(--muted); font-size: 0.92rem; max-width: 660px; }
+
+    /* ABOUT */
+    .about-section { padding: 5rem 0; }
+    .about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
+    .about-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 4 / 5; background: #ddd; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-text h2 { font-family: var(--font-serif); font-size: clamp(1.8rem, 3.5vw, 2.5rem); margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 0.95rem; }
+    .socials { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+    .socials a { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--muted); transition: all 0.25s; }
+    .socials a:hover { background: var(--accent); border-color: var(--accent); color: #fff; transform: translateY(-3px); }
+    .socials svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* FOOTER */
+    .site-footer { background: var(--ink); color: rgba(255, 255, 255, 0.7); padding: 3rem 0 2rem; text-align: center; }
+    .site-footer .logo { color: #fff; display: inline-block; margin-bottom: 0.75rem; }
+    .site-footer .logo span { color: var(--accent); }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; margin: 1rem 0 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .site-footer .copy { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem; margin-top: 1.5rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { position: fixed; top: 68px; left: 0; right: 0; background: var(--bg); flex-direction: column; align-items: center; gap: 0; padding: 1rem 0; border-bottom: 1px solid var(--line); transform: translateY(-120%); opacity: 0; pointer-events: none; transition: transform 0.3s ease, opacity 0.3s ease; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06); }
+      .nav-links.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .nav-links li { width: 100%; text-align: center; }
+      .nav-links a { display: block; padding: 0.9rem 0; font-size: 1rem; }
+      .hamburger { display: block; }
+      .about-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .about-img { aspect-ratio: 16 / 10; max-width: 480px; margin: 0 auto; }
+      .hero { min-height: 80vh; }
+      .tips-box { padding: 1.5rem; }
+      .search-row { flex-direction: column; align-items: stretch; }
+      .map-frame { aspect-ratio: 4 / 3; }
+      .map-panel summary { flex-wrap: wrap; }
+    }
+    @media (max-width: 480px) {
+      .stopover-grid, .kit-grid, .app-grid, .operator-grid, .build-grid { grid-template-columns: 1fr; }
+      .map-body { padding: 0 0.9rem 0.9rem; }
+      .map-panel summary { padding: 1rem 0.9rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="#" class="logo">The <span>Van-lifers</span></a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#vanlife">Vanlife Guide</a></li>
+          <li><a href="#selfbuild">Self-Build</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <span class="kicker">Van-lifer · Since 2026</span>
+        <h1>Chasing life, one stop at a time.</h1>
+        <p>From Highland passes to Algarve coves — honest travel tips, off-grid power advice, and the moments in between, from the UK to the rest of Europe.</p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="#vanlife" class="btn btn-primary">Vanlife Guide</a>
+          <a href="#selfbuild" class="btn btn-outline">Self-Build Guide</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- VANLIFE GUIDE SECTION                                        -->
+  <!-- ============================================================ -->
+  <section class="vanlife-section" id="vanlife">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">On the Road</span>
+        <h2>Vanlife Guide — UK, Ireland &amp; Europe</h2>
+        <p>370+ verified campsites, aires, stellplatz and wild camping spots — plus the context on Europe's 23,000+ campsites, the apps that find them, and the practical rules you need to know before you park.</p>
+      </div>
+
+      <div class="vanlife-intro">
+        <p>In the UK, <strong>“wild camping” in a vehicle is not legal in England, Wales, or Northern Ireland</strong> without explicit landowner permission. Even in Scotland, where the Outdoor Access Code permits wild camping on foot, this right does <strong>not</strong> extend to motorhomes or campervans — you still need permission or a designated spot.</p>
+        <p style="margin-top:1rem;">Across Europe the picture is more varied. France, Germany, Italy and Spain all have networks of <strong>aires</strong> and official motorhome stopovers, while wild-camping rules differ hugely country to country — and are often stricter than people assume. Always check local rules and signage before you park.</p>
+        <div class="alert">
+          <strong>Legal stopover options include:</strong> campsites, Brit Stops (pub/farm networks), Certificated Locations (CLs), pub stopovers, European aires (France, Italy, Spain, Portugal), Stellplatz (Germany, Austria, Switzerland), and community apps like Park4Night and Campercontact — always check recent reviews before you commit.
+        </div>
+      </div>
+
+      <!-- EUROPE BY THE NUMBERS -->
+      <div class="guide-subhead">
+        <h3>📊 Europe by the Numbers</h3>
+        <p>Context on the scale of the European camping scene — and why no single webpage can hold every site.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">23,000+</div>
+          <div class="stat-label">Registered campsites and holiday parks across Europe</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">8,100+</div>
+          <div class="stat-label">Campsites in France — roughly 35% of the EU total</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">~2,000–2,700</div>
+          <div class="stat-label">Sites in the Netherlands — highest density per capita</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">10–13%</div>
+          <div class="stat-label">Share of the total, each, for Germany and Italy</div>
+        </div>
+      </div>
+
+      <p class="price-note" style="margin-bottom: 2rem;">The curated list below covers 370+ hand-picked sites across every major country and region. For the full 23,000, Park4Night, Campercontact and ACSI have the most complete databases — and they’re updated by thousands of contributors. This page is a planning companion, not a replacement for those tools.</p>
+
+      <!-- MAJOR OPERATOR NETWORKS -->
+      <div class="guide-subhead">
+        <h3>🏢 Major European Operator Networks</h3>
+        <p>The big park operators behind a large share of Europe’s holiday parks — worth knowing if you want to book a fixed-base stay rather than tour.</p>
+      </div>
+
+      <div class="operator-grid">
+        <div class="operator-card">
+          <h4>Eurocamp</h4>
+          <div class="op-meta">400+ parks · 12 countries</div>
+          <p>The largest camping holiday operator in Europe. Eurocamp doesn’t own the parks — it books pitches, mobile homes and tents across partner sites in France, Italy, Spain, Croatia, the Netherlands and beyond. Ideal if you want a fixed base with family facilities.</p>
+          <a href="https://www.eurocamp.co.uk/" target="_blank" rel="noopener noreferrer">Browse Eurocamp parks →</a>
+        </div>
+
+        <div class="operator-card">
+          <h4>Landal GreenParks</h4>
+          <div class="op-meta">100+ parks · 9 countries</div>
+          <p>Dutch-origin operator with holiday parks across the Netherlands, Germany, Belgium, Austria, Switzerland, Czechia, Denmark, France and Hungary. Mostly bungalows and lodges, though several parks also have touring pitches.</p>
+          <a href="https://www.landal.co.uk/" target="_blank" rel="noopener noreferrer">Browse Landal parks →</a>
+        </div>
+
+        <div class="operator-card">
+          <h4>Center Parcs Europe</h4>
+          <div class="op-meta">28 resorts</div>
+          <p>The European arm of Center Parcs. Subtropical swimming domes, forest settings and lodge-style accommodation across the Netherlands, Germany, Belgium and France. Not a campervan stopover — but useful context if you want a fixed-base break.</p>
+          <a href="https://www.centerparcs.eu/" target="_blank" rel="noopener noreferrer">Browse Center Parcs Europe →</a>
+        </div>
+
+        <div class="operator-card">
+          <h4>Huttopia</h4>
+          <div class="op-meta">90+ campsites · 7 countries</div>
+          <p>French operator specialising in “nature” campsites — woodland and lakeside sites in France, Italy, Spain, the Netherlands, Switzerland, Germany and Canada. A good middle ground between a traditional campsite and a glamping resort.</p>
+          <a href="https://www.huttopia.com/en/" target="_blank" rel="noopener noreferrer">Browse Huttopia sites →</a>
+        </div>
+
+        <div class="operator-card">
+          <h4>Flower Campings</h4>
+          <div class="op-meta">550+ campsites · France</div>
+          <p>A French network of independent campsites, all family-run and quality-audited. Strong coverage across regions that the big operators skip, with a mix of touring pitches and rental accommodation.</p>
+          <a href="https://www.flowercampings.com/" target="_blank" rel="noopener noreferrer">Browse Flower Campings →</a>
+        </div>
+
+        <div class="operator-card">
+          <h4>ACSI</h4>
+          <div class="op-meta">9,500+ inspected sites</div>
+          <p>Not an operator but the most respected inspection scheme in European camping. ACSI inspects and rates thousands of sites across the continent, and the ACSI Card gives discounted off-peak rates at around 3,000 of them.</p>
+          <a href="https://www.acsi.eu/en/" target="_blank" rel="noopener noreferrer">Browse ACSI sites →</a>
+        </div>
+      </div>
+
+      <!-- COMMUNITY MAP -->
+      <details class="map-panel" style="margin-top: 2rem;">
+        <summary>
+          <span class="sum-title">🗺️ Community Pub Stopover Map <span class="sum-sub">(UK · pub stopovers only)</span></span>
+          <span class="chev">▼</span>
+        </summary>
+        <div class="map-body">
+          <div class="map-frame">
+            <iframe
+              src="https://www.google.com/maps/d/embed?mid=1B_k8cst5osXaWVYrnWbB6qPGugU&ehbc=2E312F"
+              title="Community pub stopovers map (UK)"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+          <p class="map-note">
+            A community-maintained Google My Map of <strong>pub stopovers only</strong> around the UK, many canal-side, with notes on charges, electric hook-up and waste points. It's maintained by other motorhomers, not by us, so always ring ahead to confirm a spot is still available and still welcoming vans.
+          </p>
+          <div class="map-actions">
+            <a class="map-open" href="https://www.google.com/maps/d/viewer?mid=1B_k8cst5osXaWVYrnWbB6qPGugU" target="_blank" rel="noopener noreferrer">Open full map in Google Maps →</a>
+          </div>
+        </div>
+      </details>
+
+      <!-- WILD CAMPING LEGALITY -->
+      <div class="guide-subhead">
+        <h3>🌿 Wild Camping in Europe — Know the Rules First</h3>
+        <p>Wild camping rules vary enormously. Scotland, Norway, Sweden and Finland are the most permissive; Germany, Italy, England and Wales are not. Always check before you pitch.</p>
+      </div>
+
+      <div class="wild-note">
+        <strong>Important:</strong> Wild camping is <strong>illegal in Germany, Italy, England and Wales</strong> without landowner permission. Some countries (such as France) have loopholes where you can bivvy but not pitch a tent. Norway, Sweden and Finland allow wild camping under <em>allemansrätten</em> (everyman’s right) — typically two nights on uncultivated land, at least 150 metres from habitation. Scotland allows it under the Land Reform (Scotland) Act 2003, but follow the Scottish Outdoor Access Code. Estonia, Latvia and Lithuania generally permit wild camping away from homes and protected areas. <strong>Campervans and motorhomes are usually treated more strictly than tents</strong> — always confirm whether vehicle overnighting is allowed, not just tent camping.
+      </div>
+
+      <!-- WILD CAMPING SPOTS -->
+      <div class="guide-subhead">
+        <h3>🏕️ 10 Wild Camping Adventures in Europe</h3>
+        <p>Our favourite spots to pitch up, from uninhabited Greek islands to the Arctic wilderness of Svalbard — adapted from the Much Better Adventures guide.</p>
+      </div>
+
+      <div class="stopover-grid" id="wildCampingGrid">
+        <!-- Wild camping cards injected by JS below -->
+      </div>
+
+      <p class="price-note" style="margin-top: 1rem;">Wild camping is free, but that doesn’t mean it’s free of responsibility: leave no trace, carry all litter out, and follow local access codes. Many of these adventures are best done with a guide — especially in Svalbard, where polar bears outnumber people and leaving Longyearbyen without an armed guide is not permitted.</p>
+
+      <!-- VANLIFE UK — WATCH & LEARN -->
+      <div class="guide-subhead">
+        <h3>🎥 Vanlife UK — Watch &amp; Learn</h3>
+        <p>Real UK vanlife playlists and channels. These are embeddable — unlike a YouTube search page, which cannot be loaded inside a site.</p>
+      </div>
+
+      <div class="stopover-grid">
+
+        <!-- THE WANDERERS EXPLORE -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#e0e8f5; color:#3d5a8a;">Campervan UK</span>
+          <h3>The Wanderers Explore</h3>
+          <div class="location">Simon &amp; Ragan · VW T4</div>
+          <p>Hidden coastal gems, scenic UK road trips and wild camping spots in a VW T4. Real weekend escapes, breakdowns and the highs and lows of UK campervan life.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/embed?listType=user_uploads&list=TheWanderersExplore"
+              title="The Wanderers Explore videos"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- PHILLY & KEELY -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#e3f0e0; color:#4a7a3d;">Full Series</span>
+          <h3>Philly &amp; Keely</h3>
+          <div class="location">Scotland &amp; UK</div>
+          <p>Their “Full Length Vanlife Series” covers the NC500, Isle of Skye, the Outer Hebrides and what vanlife in Scotland is really like across two months of footage.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/embed?listType=playlist&list=PLt6Mm4WzGrDFzFdT1w2_BiRmR9nMusCkH"
+              title="Philly & Keely — Full Length Vanlife Series"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- THOSE HAPPY DAYS -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#f5e0e8; color:#8a3d5a;">Arctic Road Trip</span>
+          <h3>Those Happy Days</h3>
+          <div class="location">UK &amp; Arctic Circle</div>
+          <p>“Driving to the Arctic Circle from the UK (Van Life)” — an 11-video playlist covering a winter campervan trip from the UK to the Arctic Circle.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/embed?listType=playlist&list=PLvYUExWBSWVjmjZ7zJutXsMoAGMCIrNk6"
+              title="Those Happy Days — Arctic Circle playlist"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- URBAN VANLIFE -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#e0f0f5; color:#2c6e7f;">Van Build</span>
+          <h3>Urban Vanlife</h3>
+          <div class="location">Neil &amp; Emma · Liverpool</div>
+          <p>Full-time vanlifers and self-build specialists from Liverpool. 62k subscribers, 520+ videos covering build, repair and UK/Europe travel.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/embed?listType=user_uploads&list=UrbanVanlife"
+              title="Urban Vanlife videos"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- OUR VAN TALES -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#f0eae0; color:#6b5a3d;">Sprinter Build</span>
+          <h3>Our Van Tales</h3>
+          <div class="location">Andy &amp; Bea · UK &amp; Europe</div>
+          <p>Travelling the UK, Europe and beyond in a converted Sprinter campervan. Wild camping where possible, with a genuine focus on discovery.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/embed?listType=user_uploads&list=OurVanTales"
+              title="Our Van Tales videos"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- COMBE VALLEY CAMPERS -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#efe9f5; color:#55407a;">Build &amp; Repair</span>
+          <h3>Combe Valley Campers</h3>
+          <div class="location">East Sussex</div>
+          <p>Nearly 100k subscribers. From his workshop in East Sussex, Leigh helps thousands of people build, repair and convert their own campervans.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/embed?listType=user_uploads&list=CombeValleyCampers"
+              title="Combe Valley Campers videos"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- ABBY — MICRO CAMPER LIFE UK -->
+        <div class="stopover-card">
+          <span class="type-badge" style="background:#fde8dd; color:#b84a20;">Micro Camper</span>
+          <h3>Abby — Micro Camper Life UK</h3>
+          <div class="location">UK · Micro Camper Adventures</div>
+          <p>Micro camper adventures around the UK — small-van living, clever storage ideas, and honest trips in a compact camper. Perfect if you're downsizing or want a minimalist setup.</p>
+          <div style="position:relative; aspect-ratio:16/9; border-radius:10px; overflow:hidden; margin-top:1rem; background:#000;">
+            <iframe
+              src="https://www.youtube.com/@Microcamperlifeuk"
+              title="Abby — Micro Camper Life UK videos"
+              loading="lazy"
+              style="position:absolute; inset:0; width:100%; height:100%; border:0;"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="price-note" style="margin-top:1rem;">The embeds above use <code>listType=user_uploads</code> (channel latest uploads) and <code>listType=playlist</code> (a specific playlist). Both are officially supported by YouTube. Search results pages are not.</p>
+
+      <!-- SEARCH -->
+      <div class="guide-subhead">
+        <h3>🔎 Find a Stopover</h3>
+        <p>Filter by category, use a regional quick-jump, or search by name — full country and region coverage below.</p>
+      </div>
+
+      <div class="search-panel">
+        <div class="search-row">
+          <input type="text" id="stopSearch" class="search-input" placeholder="Search by name, place or country — e.g. Bridlington, Snowdonia, Honfleur, Tuscany...">
+          <button id="useLocationBtn" class="btn btn-primary" style="padding:0.75rem 1.2rem; font-size:0.85rem;">📍 Use my location</button>
+          <select id="radiusSelect" class="radius-select" aria-label="Search radius">
+            <option value="50">Within 50 miles</option>
+            <option value="100">Within 100 miles</option>
+            <option value="200" selected>Within 200 miles</option>
+            <option value="500">Within 500 miles</option>
+            <option value="1000">Within 1,000 miles</option>
+            <option value="2000">Within 2,000 miles</option>
+            <option value="99999">Any distance</option>
+          </select>
+        </div>
+        <div class="cat-chips" id="catChips"></div>
+        <div class="quick-jumps">
+          <span class="qj-label">Jump to</span>
+          <a href="#" data-jump="uk">UK</a>
+          <a href="#" data-jump="ireland">Ireland</a>
+          <a href="#" data-jump="france">France</a>
+          <a href="#" data-jump="spain">Spain</a>
+          <a href="#" data-jump="portugal">Portugal</a>
+          <a href="#" data-jump="italy">Italy</a>
+          <a href="#" data-jump="germany">Germany</a>
+          <a href="#" data-jump="benelux">Netherlands, Belgium &amp; Luxembourg</a>
+          <a href="#" data-jump="switzerland">Switzerland</a>
+          <a href="#" data-jump="austria">Austria</a>
+          <a href="#" data-jump="slovenia">Slovenia</a>
+          <a href="#" data-jump="croatia">Croatia</a>
+          <a href="#" data-jump="scandinavia">Scandinavia</a>
+          <a href="#" data-jump="eastern-europe">Eastern Europe</a>
+          <a href="#" data-jump="greece">Greece</a>
+          <a href="#" data-jump="turkey">Turkey</a>
+        </div>
+        <p id="searchStatus" class="search-status">Showing all stopovers, grouped by type.</p>
+        <p class="price-note">Prices are indicative for two adults with a campervan, off-peak. UK sites typically run £15–£35/night; European aires €10–€25, with campsites €25–€50. Large operator parks can run €40–€80+ in high season. Wild camping is usually free but subject to local rules. Always confirm current rates directly with the site.</p>
+      </div>
+
+      <div id="searchResults"></div>
+
+      <div class="solo-note">
+        <strong>Solo traveller tips:</strong> pitch near other vans or the site office on your first night · share your live location with someone at home (what3words is perfect for this) · read the last few Park4Night reviews to check a site’s current vibe and safety · pub stopovers and aires are naturally sociable, so you’re never short of a chat · keep valuables out of sight and lock up when you head out.
+      </div>
+
+      <!-- APPS -->
+      <div class="guide-subhead">
+        <h3>📱 Apps We Use to Find Stopovers</h3>
+        <p>Download these before you set off — they're the reason we rarely struggle for a pitch, in the UK or on the continent. All links open in a new tab.</p>
+      </div>
+
+      <div class="app-grid">
+        <div class="app-card">
+          <h4>Park4Night</h4>
+          <div class="app-tagline">Our #1 app</div>
+          <p>The community bible for vanlifers. Thousands of user-added spots across Europe — campsites, pub stops, aires and laybys — each with photos and recent reviews.</p>
+          <div class="app-price">Free · Premium ≈ £12/year</div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://apps.apple.com/app/park4night/id552309395" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.26 3.06-.9.98-1.99 1.55-3.15 1.46-.02-.12-.03-.24-.03-.36 0-1.1.46-2.19 1.28-3.03.83-.85 1.98-1.42 3.16-1.13zM20.94 17.06c-.34.78-.5 1.13-.94 1.82-.6.96-1.46 2.16-2.52 2.17-1.06.01-1.33-.7-2.77-.69-1.44.01-1.74.7-2.8.69-1.06-.01-1.87-1.09-2.47-2.05-1.7-2.7-1.88-5.88-.83-7.57.75-1.2 1.93-1.9 3.04-1.9 1.13 0 1.84.7 2.77.7.9 0 1.45-.7 2.76-.7.99 0 2.03.54 2.78 1.47-2.44 1.34-2.05 4.83.98 6.06z"/></svg>
+              iOS
+            </a>
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=fr.tramb.park4night" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Android
+            </a>
+            <a class="store-btn" href="https://park4night.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a7 7 0 0 0-1.9-4.6A8 8 0 0 1 18.9 11zM12 4a8 8 0 0 1 3.9 1 5 5 0 0 0-3.9 6h-4a5 5 0 0 0-3.9-6A8 8 0 0 1 12 4zM5.1 13h3a7 7 0 0 0 1.9 4.6A8 8 0 0 1 5.1 13z"/></svg>
+              Web
+            </a>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <h4>Campercontact</h4>
+          <div class="app-tagline">Best across Europe</div>
+          <p>Our second check for anywhere on the continent. Official motorhome stopovers plus verified campsites, with photos, pricing and facility info updated by a large user base.</p>
+          <div class="app-price">Free · Pro ≈ £25/year</div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://apps.apple.com/app/campercontact/id505638181" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.26 3.06-.9.98-1.99 1.55-3.15 1.46-.02-.12-.03-.24-.03-.36 0-1.1.46-2.19 1.28-3.03.83-.85 1.98-1.42 3.16-1.13zM20.94 17.06c-.34.78-.5 1.13-.94 1.82-.6.96-1.46 2.16-2.52 2.17-1.06.01-1.33-.7-2.77-.69-1.44.01-1.74.7-2.8.69-1.06-.01-1.87-1.09-2.47-2.05-1.7-2.7-1.88-5.88-.83-7.57.75-1.2 1.93-1.9 3.04-1.9 1.13 0 1.84.7 2.77.7.9 0 1.45-.7 2.76-.7.99 0 2.03.54 2.78 1.47-2.44 1.34-2.05 4.83.98 6.06z"/></svg>
+              iOS
+            </a>
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.campercontact.app" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Android
+            </a>
+            <a class="store-btn" href="https://www.campercontact.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a7 7 0 0 0-1.9-4.6A8 8 0 0 1 18.9 11zM12 4a8 8 0 0 1 3.9 1 5 5 0 0 0-3.9 6h-4a5 5 0 0 0-3.9-6A8 8 0 0 1 12 4zM5.1 13h3a7 7 0 0 0 1.9 4.6A8 8 0 0 1 5.1 13z"/></svg>
+              Web
+            </a>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <h4>iOverlander</h4>
+          <div class="app-tagline">Free &amp; global</div>
+          <p>Completely free, community-run and brilliant outside Europe. Crowdsourced wild-camping spots, water points, dump stations and mechanics — vetted by other overlanders.</p>
+          <div class="app-price">Free · No subscription</div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://apps.apple.com/app/ioverlander/id932044708" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.26 3.06-.9.98-1.99 1.55-3.15 1.46-.02-.12-.03-.24-.03-.36 0-1.1.46-2.19 1.28-3.03.83-.85 1.98-1.42 3.16-1.13zM20.94 17.06c-.34.78-.5 1.13-.94 1.82-.6.96-1.46 2.16-2.52 2.17-1.06.01-1.33-.7-2.77-.69-1.44.01-1.74.7-2.8.69-1.06-.01-1.87-1.09-2.47-2.05-1.7-2.7-1.88-5.88-.83-7.57.75-1.2 1.93-1.9 3.04-1.9 1.13 0 1.84.7 2.77.7.9 0 1.45-.7 2.76-.7.99 0 2.03.54 2.78 1.47-2.44 1.34-2.05 4.83.98 6.06z"/></svg>
+              iOS
+            </a>
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.overlander.ioverlander" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Android
+            </a>
+            <a class="store-btn" href="https://ioverlander.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a7 7 0 0 0-1.9-4.6A8 8 0 0 1 18.9 11zM12 4a8 8 0 0 1 3.9 1 5 5 0 0 0-3.9 6h-4a5 5 0 0 0-3.9-6A8 8 0 0 1 12 4zM5.1 13h3a7 7 0 0 0 1.9 4.6A8 8 0 0 1 5.1 13z"/></svg>
+              Web
+            </a>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <h4>SearchForSites</h4>
+          <div class="app-tagline">Best for the UK</div>
+          <p>Built specifically for UK motorhomers. Covers campsites, Certified Locations, Certified Sites, pub stops and overnight parking — with filters for facilities, hook-up and vehicle length.</p>
+          <div class="app-price">Free · Full access ≈ £10/year</div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://apps.apple.com/gb/app/searchforsites/id1444323445" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.26 3.06-.9.98-1.99 1.55-3.15 1.46-.02-.12-.03-.24-.03-.36 0-1.1.46-2.19 1.28-3.03.83-.85 1.98-1.42 3.16-1.13zM20.94 17.06c-.34.78-.5 1.13-.94 1.82-.6.96-1.46 2.16-2.52 2.17-1.06.01-1.33-.7-2.77-.69-1.44.01-1.74.7-2.8.69-1.06-.01-1.87-1.09-2.47-2.05-1.7-2.7-1.88-5.88-.83-7.57.75-1.2 1.93-1.9 3.04-1.9 1.13 0 1.84.7 2.77.7.9 0 1.45-.7 2.76-.7.99 0 2.03.54 2.78 1.47-2.44 1.34-2.05 4.83.98 6.06z"/></svg>
+              iOS
+            </a>
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=uk.co.searchforsites" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Android
+            </a>
+            <a class="store-btn" href="https://www.searchforsites.co.uk/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a7 7 0 0 0-1.9-4.6A8 8 0 0 1 18.9 11zM12 4a8 8 0 0 1 3.9 1 5 5 0 0 0-3.9 6h-4a5 5 0 0 0-3.9-6A8 8 0 0 1 12 4zM5.1 13h3a7 7 0 0 0 1.9 4.6A8 8 0 0 1 5.1 13z"/></svg>
+              Web
+            </a>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <h4>Brit Stops</h4>
+          <div class="app-tagline">Membership scheme</div>
+          <p>Not an app but a printed book and map: 1,500+ pubs, farms and vineyards that host motorhomes free of charge in exchange for your custom.</p>
+          <div class="app-price">≈ £33/year (book + map)</div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://www.britstops.com/" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3a7 7 0 0 0-1.9-4.6A8 8 0 0 1 18.9 11zM12 4a8 8 0 0 1 3.9 1 5 5 0 0 0-3.9 6h-4a5 5 0 0 0-3.9-6A8 8 0 0 1 12 4zM5.1 13h3a7 7 0 0 0 1.9 4.6A8 8 0 0 1 5.1 13z"/></svg>
+              Visit Brit Stops
+            </a>
+          </div>
+        </div>
+
+        <div class="app-card">
+          <h4>what3words</h4>
+          <div class="app-tagline">Emergency &amp; meet-ups</div>
+          <p>Every 3m square on Earth has a unique three-word address. Invaluable when a stopover is down an unnamed lane and postcodes fail — and essential in an emergency.</p>
+          <div class="app-price">Free · No subscription</div>
+          <div class="store-btns">
+            <a class="store-btn" href="https://apps.apple.com/app/what3words/id657878530" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.42 2.2-1.26 3.06-.9.98-1.99 1.55-3.15 1.46-.02-.12-.03-.24-.03-.36 0-1.1.46-2.19 1.28-3.03.83-.85 1.98-1.42 3.16-1.13zM20.94 17.06c-.34.78-.5 1.13-.94 1.82-.6.96-1.46 2.16-2.52 2.17-1.06.01-1.33-.7-2.77-.69-1.44.01-1.74.7-2.8.69-1.06-.01-1.87-1.09-2.47-2.05-1.7-2.7-1.88-5.88-.83-7.57.75-1.2 1.93-1.9 3.04-1.9 1.13 0 1.84.7 2.77.7.9 0 1.45-.7 2.76-.7.99 0 2.03.54 2.78 1.47-2.44 1.34-2.05 4.83.98 6.06z"/></svg>
+              iOS
+            </a>
+            <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.what3words.android" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Android
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tips-box">
+        <h3>💡 Vanlife Tips — UK, Ireland &amp; Europe</h3>
+        <ul>
+          <li><strong>Use the apps:</strong> Park4Night and Campercontact for the continent, SearchForSites and Brit Stops for the UK and Ireland. Community-driven, with recent reviews from other vanlifers.</li>
+          <li><strong>Always ask permission:</strong> If you spot a promising pub or farm, go in, ask politely, and buy something. Respectful requests are often met with a welcoming “yes”.</li>
+          <li><strong>Learn the local rules:</strong> wild-camping laws vary enormously across Europe. Fines are real, and a clamped van ruins a trip — check before you park, not after.</li>
+          <li><strong>Aire etiquette:</strong> on European aires, keep noise down, use the service point for waste, and pay what's asked. Cheap stopovers survive only while they're respected.</li>
+          <li><strong>Self-build reality check:</strong> insulation and electrics are the two systems that most often cause problems. Do them properly, fuse everything, and leave maintenance access.</li>
+          <li><strong>Adults-only sites:</strong> book ahead, especially in school holidays. Minimum ages vary (16+, 18+, sometimes 50+), and policies on dogs and music differ. Always confirm before you drive.</li>
+          <li><strong>Winter planning:</strong> many campsites close out of season — check opening dates, carry a B2B charger for short winter days, and keep an eye on mountain-pass closures.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SELF-BUILD SECTION                                           -->
+  <!-- ============================================================ -->
+  <section class="selfbuild-section" id="selfbuild">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Build Your Own</span>
+        <h2>Self-Build Campervan Guide</h2>
+        <p>From base van choice to DVLA re-registration — plus power stations, solar kit, charge controllers and lithium batteries. Everything you need to plan, build and power your own van.</p>
+      </div>
+
+      <!-- BASE VAN CHOICE -->
+      <div class="guide-subhead" style="margin-top: 0;">
+        <h3>🔧 Base Van Choice</h3>
+        <p>The four most popular base vans in the UK, and what each one is best at. Choose based on how you'll use the van — not what looks best on Instagram.</p>
+      </div>
+
+      <div class="build-grid">
+        <div class="build-card">
+          <span class="build-tag">Best all-rounder</span>
+          <h4>Volkswagen Transporter (T5 / T6 / T6.1)</h4>
+          <p>The default UK self-build. Compact enough for daily driving, fits under 2m height barriers, and has the biggest aftermarket for camper components — swivel seats, pop-tops, kitchen pods. Holds its value better than almost anything else.</p>
+          <div class="build-spec">SWB or LWB · ~2.0m height · huge parts support · strong resale</div>
+        </div>
+
+        <div class="build-card">
+          <span class="build-tag">Best value &amp; width</span>
+          <h4>Ford Transit Custom</h4>
+          <p>Often wider than the Transporter, which means a true width-ways bed in some builds — a huge space-saver. Cheaper to buy and maintain, with the most extensive UK service network. The value king of UK conversions.</p>
+          <div class="build-spec">SWB or LWB · wider load area · cheaper parts · strong UK dealer network</div>
+        </div>
+
+        <div class="build-card">
+          <span class="build-tag">Best for space</span>
+          <h4>Fiat Ducato / Peugeot Boxer / Citroën Relay</h4>
+          <p>The Sevel trio — basically the same van underneath. Boxy, useful interior width, and the workhorse choice for transverse beds and space-efficient builds. Plenty of second-hand examples and strong converter support.</p>
+          <div class="build-spec">L2H2 or L3H2 · boxy interior · shared platform · watch condition &amp; payload</div>
+        </div>
+
+        <div class="build-card">
+          <span class="build-tag">Best for full-time</span>
+          <h4>Mercedes Sprinter / VW Crafter</h4>
+          <p>Vertical side walls, generous payload and a strong long-distance platform ecosystem. The premier choice for full-time off-grid living or specialist builds. Parts and purchase cost are higher, and older vans need a careful rust check.</p>
+          <div class="build-spec">LWB · vertical walls · high payload · premium build ecosystem</div>
+        </div>
+      </div>
+
+      <div class="wild-note" style="margin-top: 1.5rem;">
+        <strong>Euro 6 compliance matters.</strong> For 2026 urban touring, a Euro 6 van avoids ULEZ/LEZ charges in London, Bristol, Birmingham and beyond. Always verify the <strong>unladen weight</strong> before you build — a 3,500kg GVW limit is reached surprisingly quickly once you add insulation, furniture, water and people.
+      </div>
+
+      <!-- BUDGET -->
+      <div class="guide-subhead">
+        <h3>💷 Realistic Self-Build Budget (UK 2026)</h3>
+        <p>Figures below are for the conversion itself (materials and paid labour), separate from the base van. A used base typically runs £8,000–£12,000 for an older van, £12,000–£20,000 for a mid-range van, and £20,000–£35,000+ for newer or low-mileage models.</p>
+      </div>
+
+      <div class="budget-table-wrap">
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th>Build level</th>
+              <th>Typical scope</th>
+              <th>Conversion cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Simple DIY weekender</td>
+              <td>Insulation, lining, removable bed/storage, basic 12V, portable cooking and water</td>
+              <td class="money">£4,000–£10,000</td>
+            </tr>
+            <tr>
+              <td>Day / weekend camper</td>
+              <td>Fitted furniture, rock-and-roll bed, full insulation, functional electrics</td>
+              <td class="money">£6,000–£15,000</td>
+            </tr>
+            <tr>
+              <td>Full-time / off-grid build</td>
+              <td>Lithium leisure bank, solar, DC-DC charger, heater, hot water, compressor fridge, joinery</td>
+              <td class="money">£15,000–£30,000+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="price-note">A self-build typically costs £4,000–£12,000 in materials for a comfortable mid-spec van, against £15,000–£60,000+ for the same thing built professionally. The electrical system and insulation are usually the two largest line items after the base van.</p>
+
+      <!-- LAYOUT -->
+      <div class="guide-subhead">
+        <h3>🛏️ Layout — Rock and Roll vs Fixed Bed</h3>
+        <p>The two dominant UK layouts. Choose based on how you’ll use the van, not what looks best on Instagram.</p>
+      </div>
+
+      <div class="build-grid">
+        <div class="build-card">
+          <span class="build-tag" style="background:#e0e8f5; color:#3d5a8a;">Flexible</span>
+          <h4>Rock and Roll Bed</h4>
+          <p>A crash-tested rear seat that belts passengers by day and folds flat into a double bed at night. Gives you a social lounge layout and works well in medium or smaller vans. The default choice for most UK conversions.</p>
+          <div class="build-spec">Belts passengers · folds flat · suits 2+2 layouts · best for daily drivers</div>
+        </div>
+
+        <div class="build-card">
+          <span class="build-tag" style="background:#e3f0e0; color:#4a7a3d;">Comfort</span>
+          <h4>Fixed Bed</h4>
+          <p>A permanent bed — usually transverse or longitudinal — with storage underneath. No setup at night, more comfort, and often a better night’s sleep. Works best in a LWB van or a dedicated tourer where you don’t need rear travel seats.</p>
+          <div class="build-spec">No setup · more storage · suits LWB · best for full-time tourers</div>
+        </div>
+      </div>
+
+      <p class="price-note">If you need rear belted seats, a rock-and-roll bed is the safer and more practical route. If you’re touring as a couple and want a proper mattress and a garage underneath, a fixed bed is the better long-term choice.</p>
+
+      <!-- INSULATION & ELECTRICS -->
+      <div class="guide-subhead">
+        <h3>🧱 Insulation, Electrics &amp; Water</h3>
+        <p>The hidden systems that make or break a build. Get these right before you line the van.</p>
+      </div>
+
+      <div class="build-grid">
+        <div class="build-card">
+          <span class="build-tag" style="background:#fdf3d8; color:#8a6a1e;">Thermal</span>
+          <h4>Insulation</h4>
+          <p>Use <strong>closed-cell foam</strong> (PIR boards or closed-cell roll) against the metal to stop condensation and cold bridging. Avoid Rockwool or sheep’s wool — they hold moisture and can rot the van from the inside out. Sound-deadening first, then insulation, then a vapour strategy.</p>
+          <div class="build-spec">Closed-cell foam · PIR boards · sound deadening · avoid moisture-trapping wool</div>
+        </div>
+
+        <div class="build-card">
+          <span class="build-tag" style="background:#e0e8f5; color:#3d5a8a;">Power</span>
+          <h4>12V Electrics</h4>
+          <p>Plan the system on paper before buying anything. A typical UK build uses a <strong>100–300Ah LiFePO4 leisure battery</strong>, an MPPT solar controller, a DC-DC charger for alternator charging, and an inverter only if you need 230V. Fuse every positive run close to the battery.</p>
+          <div class="build-spec">LiFePO4 · MPPT · DC-DC charger · fused circuits · size to consumption</div>
+        </div>
+
+        <div class="build-card">
+          <span class="build-tag" style="background:#e5f0f5; color:#3d7a8a;">Plumbing</span>
+          <h4>Water System</h4>
+          <p>Most builds run a <strong>45–70L fresh tank</strong> and a separate grey waste tank. Internal fresh tanks are common, with an underslung grey tank to save space. Use food-grade hose, a 12V pump, and plan for frost protection if you tour in winter.</p>
+          <div class="build-spec">45–70L fresh · separate grey · 12V pump · frost protection</div>
+        </div>
+      </div>
+
+      <!-- DVLA CHECKLIST -->
+      <div class="guide-subhead">
+        <h3>📋 DVLA Re-Registration Checklist</h3>
+        <p>If you want the V5C body type changed to “motor caravan”, the van must meet specific internal and external criteria. Since mid-2019, DVLA re-categorisation requires the features below — and they may request an inspection.</p>
+      </div>
+
+      <ul class="checklist">
+        <li><strong>Seats and table:</strong> at least one seat and a table that can be used in the living area.</li>
+        <li><strong>Sleeping accommodation:</strong> a bed, which can be part of the seating, shown in the use position.</li>
+        <li><strong>Cooking facilities:</strong> a fixed cooker or hob.</li>
+        <li><strong>Storage:</strong> fixed storage cupboards or compartments.</li>
+        <li><strong>Two or more windows</strong> on at least one side of the main body — not counting the driver or passenger door windows — to provide daylight into the living area.</li>
+        <li><strong>A separate side door</strong> providing access to the living accommodation (excluding driver and passenger doors).</li>
+        <li><strong>A high-top roof or pop-top elevating roof</strong> is a common expected feature.</li>
+        <li><strong>Motor caravan-style graphics</strong> on both sides of the vehicle, and an awning bar attached to either side.</li>
+        <li><strong>Photographic evidence:</strong> exterior photos of both sides, front and back with plates visible; interior photos of each required feature with the bed and table in the use position; VIN/chassis number and V5C.</li>
+      </ul>
+
+      <p class="price-note">You do <strong>not</strong> have to re-register as a motor caravan to use the van as a camper. But if you want the lower insurance band, toll classifications, or to avoid LGV parking restrictions, the V5C change is worth pursuing. Always tell your insurer about the conversion, regardless of the body type on the V5C.</p>
+
+      <!-- BUILD SEQUENCE -->
+      <div class="guide-subhead">
+        <h3>🗓️ A Sensible Build Sequence</h3>
+        <p>Do these in order. The expensive failures usually happen when windows, seats or appliances are bought before the use case, layout and weight are agreed.</p>
+      </div>
+
+      <ul class="checklist">
+        <li><strong>Define the job of the van.</strong> One sentence: who, where, what season, how long, what non-negotiables. Rent a van for a wet weekend if you’re unsure.</li>
+        <li><strong>Set the budget and delivery route.</strong> Decide what you’ll DIY, what you’ll pay a specialist for, and what your contingency is.</li>
+        <li><strong>Buy and baseline the correct van.</strong> Record internal dimensions at several heights, plated gross and axle limits, and weigh it empty.</li>
+        <li><strong>Draw the layout and weight plan.</strong> Mock it up with cardboard boxes before you cut anything.</li>
+        <li><strong>Plan the integrated systems.</strong> Electrical, water, heating, ventilation and fuel routes must coexist.</li>
+        <li><strong>Strip, repair and cut openings.</strong> Windows, vents, seats and exterior penetrations — get these done early and weather-tight.</li>
+        <li><strong>Install hidden infrastructure.</strong> Insulation, cables, pipes, ducts and service access.</li>
+        <li><strong>Line and build furniture.</strong> Lightweight, fixed structure with maintenance access.</li>
+        <li><strong>Commission everything.</strong> Test and label every circuit and system.</li>
+        <li><strong>Legal and road validation.</strong> Insurance confirmed, V5C updated if required, weights checked, shakedown trip done.</li>
+      </ul>
+
+      <!-- CAMPING POWER STATIONS -->
+      <div class="guide-subhead">
+        <h3>🔋 Camping Power Stations</h3>
+        <p>A portable power station is the plug-and-play alternative to a fixed leisure battery setup. Everything — battery, inverter and charge controller — comes in one box. Here are the models that make the most sense for UK vanlife, with current prices and real-world caveats.</p>
+      </div>
+
+      <div class="wild-note" style="margin-bottom: 1.5rem;">
+        <strong>Power station or leisure battery?</strong> A power station wins on convenience: no wiring, no installation, and you can move it between the van, a tent or home backup. A leisure battery is better for running a compressor fridge and diesel heater permanently off 12V. Many vanlifers run both — a fixed battery for the heavy loads, and a power station for laptops, cameras and 230V essentials.
+      </div>
+
+      <div class="budget-table-wrap">
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Capacity</th>
+              <th>Output</th>
+              <th>Weight</th>
+              <th>Typical UK price</th>
+              <th>Best for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EcoFlow River 3 Plus</td>
+              <td>286Wh</td>
+              <td>600W</td>
+              <td>4.7kg</td>
+              <td class="money">£219</td>
+              <td>Weekend trips, phones, lights and a laptop</td>
+            </tr>
+            <tr>
+              <td>Bluetti Elite 30 V2</td>
+              <td>288Wh</td>
+              <td>600W</td>
+              <td>4.3kg</td>
+              <td class="money">£199–£219</td>
+              <td>Lightweight camping and short off-grid stints</td>
+            </tr>
+            <tr>
+              <td>Bluetti EB3A</td>
+              <td>268Wh</td>
+              <td>600W</td>
+              <td>4.6kg</td>
+              <td class="money">£215</td>
+              <td>Multiple devices at once, small appliances</td>
+            </tr>
+            <tr>
+              <td>Jackery Explorer 500 v2</td>
+              <td>512Wh</td>
+              <td>500W</td>
+              <td>5.7kg</td>
+              <td class="money">£269–£329</td>
+              <td>Running a 12V coolbox for a weekend</td>
+            </tr>
+            <tr>
+              <td>Jackery Explorer 1000 v2</td>
+              <td>1,070Wh</td>
+              <td>1,500W</td>
+              <td>10.8kg</td>
+              <td class="money">£378–£399</td>
+              <td>CPAP, coffee machine, longer off-grid trips</td>
+            </tr>
+            <tr>
+              <td>Anker SOLIX C1000 Gen 2</td>
+              <td>1,024Wh</td>
+              <td>2,000W</td>
+              <td>11.3kg</td>
+              <td class="money">£474–£499</td>
+              <td>High-draw appliances and expandable capacity</td>
+            </tr>
+            <tr>
+              <td>EcoFlow Delta 3 Plus</td>
+              <td>1,024Wh</td>
+              <td>1,800W</td>
+              <td>~12kg</td>
+              <td class="money">£499–£599</td>
+              <td>Fast charging, solar input up to 1,000W</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="price-note">Prices are indicative and fluctuate with sales. Always check the current price at the retailer before buying. The “best for” column assumes a typical two-person campervan setup.</p>
+
+      <div class="kit-grid">
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#e0e8f5; color:#3d5a8a;">Compact</span>
+          <h3>EcoFlow River 3 Plus</h3>
+          <div class="kit-price">≈ £219 · 286Wh · 600W</div>
+          <p>The best small station for a weekend. LiFePO4 battery, three mains sockets, 100W USB-C and a 12V socket. Recharges from the wall in about an hour, and weighs under 5kg — genuinely portable.</p>
+          <ul class="kit-specs">
+            <li>286Wh capacity, 600W output (1,200W X-Boost)</li>
+            <li>4.7kg — light enough to carry into a tent</li>
+            <li>AC recharge in ~1 hour; solar input up to 220W</li>
+            <li>3,000 cycles to 80% capacity</li>
+          </ul>
+        </div>
+
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#e3f0e0; color:#4a7a3d;">Best Value</span>
+          <h3>Bluetti Elite 30 V2</h3>
+          <div class="kit-price">≈ £199–£219 · 288Wh · 600W</div>
+          <p>A tiny, well-priced unit that punches above its weight. 600W continuous with a 1,500W surge, and a 140W USB-C port that will fast-charge a laptop. One of the lightest options at 4.3kg.</p>
+          <ul class="kit-specs">
+            <li>288Wh LiFePO4, 600W output (1,500W surge)</li>
+            <li>4.3kg — one of the lightest 600W stations</li>
+            <li>140W USB-C, 8 outlets in total</li>
+            <li>3,000+ cycles; five-year warranty</li>
+          </ul>
+        </div>
+
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#fdf3d8; color:#8a6a1e;">Multi-Device</span>
+          <h3>Bluetti EB3A</h3>
+          <div class="kit-price">≈ £215 · 268Wh · 600W</div>
+          <p>A Practical Motorhome favourite. The 600W pure sine wave inverter will run small appliances, and the port selection is generous for the size. Testers kept four iPhones and a laptop topped up off-grid for two days.</p>
+          <ul class="kit-specs">
+            <li>268Wh LiFePO4, 600W output (1,200W surge)</li>
+            <li>4.6kg; built-in MPPT controller</li>
+            <li>2,500+ life cycles</li>
+            <li>Pure sine wave inverter — safe for laptops and electronics</li>
+          </ul>
+        </div>
+
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#f5e0e8; color:#8a3d5a;">Coolbox Ready</span>
+          <h3>Jackery Explorer 500 v2</h3>
+          <div class="kit-price">≈ £269–£329 · 512Wh · 500W</div>
+          <p>The sensible mid-size choice if you want to run a 12V coolbox for a weekend. Jackery’s own formula shows the inverter’s idle draw can more than halve runtime if you use the AC socket, so run the coolbox from the 12V outlet instead.</p>
+          <ul class="kit-specs">
+            <li>512Wh LiFePO4, 500W output</li>
+            <li>5.7kg — the lightest 0.5kWh station in its class</li>
+            <li>6,000 life cycles to 70% capacity</li>
+            <li>12V socket for coolbox efficiency</li>
+          </ul>
+        </div>
+
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#e0f0f5; color:#2c6e7f;">1kWh Sweet Spot</span>
+          <h3>Jackery Explorer 1000 v2</h3>
+          <div class="kit-price">≈ £378–£399 · 1,070Wh · 1,500W</div>
+          <p>The lightest 1kWh station we’ve found. If you need to run a CPAP overnight or want a coffee maker in the morning, this is the value pick. It can recharge in about an hour with the right charger, and the LiFePO4 battery is rated for 4,000 cycles.</p>
+          <ul class="kit-specs">
+            <li>1,070Wh LiFePO4, 1,500W output (3,000W surge)</li>
+            <li>10.8kg — light for a 1kWh unit</li>
+            <li>100W USB-C PD fast charging</li>
+            <li>2× pure sine wave AC, 2× USB-C, 1× USB-A, 1× car port</li>
+          </ul>
+        </div>
+
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#efe9f5; color:#55407a;">High Output</span>
+          <h3>Anker SOLIX C1000 Gen 2</h3>
+          <div class="kit-price">≈ £474–£499 · 1,024Wh · 2,000W</div>
+          <p>The highest continuous output in this group at 2,000W, with a 3,000W peak. If you want to run a hair dryer, a small heater or a powerful blender, this is the one. Also offered as a factory option by Bilbo’s campervans.</p>
+          <ul class="kit-specs">
+            <li>1,024Wh, 2,000W continuous (3,000W peak)</li>
+            <li>11.3kg; expandable with extra batteries</li>
+            <li>600W solar input</li>
+            <li>Fits under campervan seats in some conversions</li>
+          </ul>
+        </div>
+
+        <div class="kit-card">
+          <span class="kit-badge" style="background:#f0eae0; color:#6b5a3d;">Fast + Expandable</span>
+          <h3>EcoFlow Delta 3 Plus</h3>
+          <div class="kit-price">≈ £499–£599 · 1,024Wh · 1,800W</div>
+          <p>The fastest-charging 1kWh station here — about 56 minutes from the mains. It accepts up to 1,000W of solar and is expandable to 5kWh with extra batteries. A strong all-rounder if you plan to add solar later.</p>
+          <ul class="kit-specs">
+            <li>1,024Wh LFP, 1,800W output (X-Boost to 2,400W)</li>
+            <li>~56-minute AC recharge; 1,000W solar input</li>
+            <li>Expandable to 5kWh</li>
+            <li>11 output ports including 4× UK 230V sockets</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="price-note" style="margin-top:1rem;">A practical note on sizing: a 286–300Wh station is enough for phones, lights and a laptop for a weekend. Go to 500Wh if you want to run a 12V coolbox. Go to 1kWh if you need a CPAP, a coffee machine or more than two days off-grid without recharging. Whichever you choose, buy a <strong>pure sine wave</strong> model — modified sine wave inverters can damage laptops and chargers.</p>
+
+      <!-- SOLAR KIT -->
+      <div class="guide-subhead">
+        <h3>⚡ Recommended Solar &amp; Power Kit</h3>
+        <p>A reliable, UK-available 12V setup — sized for a typical campervan with a 100–200Ah leisure battery.</p>
+      </div>
+
+      <div class="kit-grid">
+        <div class="kit-card">
+          <span class="kit-badge solar">Solar Panel</span>
+          <h3>Renogy 175W Rigid Monocrystalline</h3>
+          <div class="kit-price">≈ £150 · best all-round roof panel</div>
+          <p>The sweet spot of price, size and output. Mounts flat on a roof rack with Z-brackets and Sikaflex 221 — no drilling needed if you use roof bars.</p>
+          <ul class="kit-specs">
+            <li>~175W · 12V nominal · ~9.5A peak</li>
+            <li>Compact enough for a standard SWB roof</li>
+            <li>Pair two for ~350W on a LWB van</li>
+            <li>Budget alt: 100W flexible panel (~£110)</li>
+          </ul>
+          <a class="kit-link" href="https://uk.renogy.com/" target="_blank" rel="noopener noreferrer">View at Renogy UK →</a>
+        </div>
+        <div class="kit-card">
+          <span class="kit-badge ctrl">Solar Charger</span>
+          <h3>Victron SmartSolar MPPT 100/20</h3>
+          <div class="kit-price">≈ £95 · the one we'd buy twice</div>
+          <p>An MPPT controller squeezes 20–30% more power out of your panels than a cheap PWM unit, especially on grey UK days. Built-in Bluetooth shows live data.</p>
+          <ul class="kit-specs">
+            <li>20A output · handles up to ~290W at 12V</li>
+            <li>MPPT tracking · lithium &amp; lead-acid profiles</li>
+            <li>Bluetooth monitoring, no extra display needed</li>
+            <li>Budget alt: Renogy Rover 20A MPPT (~£55)</li>
+          </ul>
+          <a class="kit-link" href="https://www.victronenergy.com/solar-charge-controllers/smartsolar-mppt" target="_blank" rel="noopener noreferrer">View at Victron →</a>
+        </div>
+        <div class="kit-card">
+          <span class="kit-badge inv">Inverter</span>
+          <h3>Renogy 1000W Pure Sine Wave</h3>
+          <div class="kit-price">≈ £170 · 12V DC → 230V AC</div>
+          <p>Enough for laptops, camera chargers, a small blender and a travel hairdryer (one at a time). <strong>Always buy pure sine wave</strong> — modified sine wave can damage electronics.</p>
+          <ul class="kit-specs">
+            <li>1000W continuous · ~2000W surge</li>
+            <li>Pure sine wave · UK 3-pin sockets</li>
+            <li>Needs 6–10mm² cable and a 100A fuse</li>
+            <li>Premium alt: Victron Phoenix 800VA (~£320)</li>
+          </ul>
+          <a class="kit-link" href="https://uk.renogy.com/" target="_blank" rel="noopener noreferrer">View at Renogy UK →</a>
+        </div>
+        <div class="kit-card">
+          <span class="kit-badge wire">Wiring &amp; Safety</span>
+          <h3>Cables, Fuses &amp; Mounts</h3>
+          <div class="kit-price">≈ £60 · don't skip this bit</div>
+          <p>Undersized cable is the #1 cause of hot wires and voltage drop. Buy once, buy properly — and fuse every positive run close to the battery.</p>
+          <ul class="kit-specs">
+            <li>6mm² solar cable + MC4 connectors</li>
+            <li>20A inline fuse on the panel run</li>
+            <li>100A MIDI fuse on the inverter feed</li>
+            <li>Z-brackets, Sikaflex 221, cable glands</li>
+          </ul>
+          <a class="kit-link" href="https://www.bimblesolar.com/" target="_blank" rel="noopener noreferrer">View at Bimble Solar →</a>
+        </div>
+      </div>
+
+      <div class="power-note">
+        <strong>Sizing shortcut:</strong> a typical van uses 40–80Ah per day (fridge, lights, phone/laptop charging). A 200W panel gives roughly 50–60Ah/day in a UK summer but only ~10–15Ah on a dark winter day — so budget for a 100Ah+ LiFePO4 battery and a DC-DC charger (B2B) to top up while driving.
+      </div>
+
+      <!-- EXTENDED SOLAR & BATTERY RECOMMENDATIONS -->
+      <div class="guide-subhead" style="margin-top: 3.5rem;">
+        <h3>⚡ Extended Power Guide — Charge Controllers &amp; Lithium Batteries</h3>
+        <p>Up-to-date 2026 recommendations for the two core components of any off-grid system. We've focused on proven, UK-available models with strong community support and warranties.</p>
+      </div>
+
+      <div class="wild-note" style="margin-bottom: 1.5rem;">
+        <strong>Why these components matter most:</strong> The charge controller is the "brain" of your solar setup — a poor choice can destroy an expensive battery, while a good MPPT unit will squeeze every available watt from your panels. The leisure battery is your energy bank; modern LiFePO4 (lithium) is now the default recommendation for van conversions due to its usable capacity, lifespan, and weight savings.
+      </div>
+
+      <!-- SOLAR CHARGE CONTROLLERS -->
+      <div class="guide-subhead" style="margin-top: 2rem;">
+        <h3>🔌 Recommended Solar Charge Controllers (MPPT)</h3>
+        <p>All models below are MPPT type — essential for getting 20–30% more power from your panels, especially in UK conditions. Prices are indicative and fluctuate with sales.</p>
+      </div>
+
+      <div class="budget-table-wrap">
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Max PV Voltage</th>
+              <th>Max Output Current</th>
+              <th>Key Features</th>
+              <th>Typical UK Price</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Victron SmartSolar MPPT 100/20</strong></td>
+              <td>100V</td>
+              <td>20A</td>
+              <td>Bluetooth, VictronConnect app, 5-year warranty, ecosystem integration</td>
+              <td class="money">~£95</td>
+              <td>Most 12V campervans; the default "buy once, cry once" choice</td>
+            </tr>
+            <tr>
+              <td><strong>Victron SmartSolar MPPT 100/30</strong></td>
+              <td>100V</td>
+              <td>30A</td>
+              <td>Same as above, higher current for larger arrays</td>
+              <td class="money">£160–£210</td>
+              <td>Larger solar arrays or future-proofing for expansion</td>
+            </tr>
+            <tr>
+              <td><strong>Renogy Rover 40A MPPT</strong></td>
+              <td>100V</td>
+              <td>40A</td>
+              <td>Integrated display, optional Bluetooth (check version), good mid-range value</td>
+              <td class="money">£60–£70</td>
+              <td>Budget-conscious builds; users wanting an on-device screen</td>
+            </tr>
+            <tr>
+              <td><strong>EPEVER Tracer 4210AN</strong></td>
+              <td>100V</td>
+              <td>40A</td>
+              <td>Budget MPPT, external display option, manual configuration</td>
+              <td class="money">~£89</td>
+              <td>DIYers on a tight budget who are comfortable with manual setup</td>
+            </tr>
+            <tr>
+              <td><strong>Victron SmartSolar MPPT 75/15</strong></td>
+              <td>75V</td>
+              <td>15A</td>
+              <td>Compact, Bluetooth, ideal for smaller panels (up to ~200W)</td>
+              <td class="money">~£89</td>
+              <td>Small systems, weekend vans, or secondary solar setups</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="price-note"><strong>Sizing tip:</strong> As a rule of thumb, controller output current (A) ≈ solar array wattage ÷ charging voltage (e.g., 200W ÷ 12V ≈ 16.7A). Always check the manufacturer's specific PV wattage table for your battery voltage.</p>
+
+      <!-- LITHIUM LEISURE BATTERIES -->
+      <div class="guide-subhead" style="margin-top: 3rem;">
+        <h3>🔋 Recommended Lithium Leisure Batteries (LiFePO4)</h3>
+        <p>LiFePO4 is the modern standard for vanlife — lighter, longer-lasting, and with far more usable capacity than AGM. All options below are 12V and suitable for campervan installations.</p>
+      </div>
+
+      <div class="budget-table-wrap">
+        <table class="budget-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Capacity</th>
+              <th>Key Features</th>
+              <th>Typical UK Price</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Fogstar Drift 12V 105Ah</strong></td>
+              <td>105Ah (~1.3 kWh)</td>
+              <td>Self-heating, Bluetooth, IP67, 10-year warranty</td>
+              <td class="money">~£299.99</td>
+              <td><strong>Best overall</strong> — the top pick for most UK van conversions. Heated cells allow safe charging in cold weather.</td>
+            </tr>
+            <tr>
+              <td><strong>Renogy Core Mini 12.8V 100Ah</strong></td>
+              <td>100Ah (~1.28 kWh)</td>
+              <td>Lightweight (9.9 kg), 5-year warranty, budget-friendly</td>
+              <td class="money">~£179.99</td>
+              <td><strong>Best value</strong> — a solid, affordable entry into lithium for weekend or part-time vanlife.</td>
+            </tr>
+            <tr>
+              <td><strong>Fogstar Drift ECO 12V 314Ah</strong></td>
+              <td>314Ah (~4 kWh)</td>
+              <td>Bluetooth, exceptional capacity per pound (~£107/kWh)</td>
+              <td class="money">~£429.99</td>
+              <td><strong>Maximum storage on a budget</strong> — ideal for full-time off-grid living or high-consumption setups.</td>
+            </tr>
+            <tr>
+              <td><strong>Renogy Pro 12V 200Ah Self-Heating</strong></td>
+              <td>200Ah (~2.56 kWh)</td>
+              <td>Self-heating (charges from -20°C), Bluetooth</td>
+              <td class="money">~£500–£600</td>
+              <td><strong>Best for winter</strong> — guaranteed performance in sub-zero temperatures.</td>
+            </tr>
+            <tr>
+              <td><strong>Battle Born 100Ah LiFePO4</strong></td>
+              <td>100Ah (~1.28 kWh)</td>
+              <td>Premium build, 10-year warranty, excellent support</td>
+              <td class="money">£350–£500</td>
+              <td><strong>The premium choice</strong> — used by professional converters, known for reliability.</td>
+            </tr>
+            <tr>
+              <td><strong>Fogstar Drift Seat Base 12V 230Ah</strong></td>
+              <td>230Ah (~2.9 kWh)</td>
+              <td>Specifically shaped to fit under a campervan seat (187.5 mm tall)</td>
+              <td class="money">~£550–£650</td>
+              <td><strong>Best for underseat installation</strong> — space-saving solution without sacrificing capacity.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="price-note"><strong>Important:</strong> Before buying a lithium battery, confirm your existing charger (solar controller, DC-DC charger, or mains charger) has a <strong>lithium/LiFePO4 charging profile</strong>. Most modern units do, but older equipment may not.</p>
+
+      <div class="power-note" style="margin-top: 2rem;">
+        <strong>Putting it together — a typical pairing:</strong> A <strong>Victron SmartSolar MPPT 100/20</strong> (~£95) paired with a <strong>Fogstar Drift 105Ah</strong> (~£300) creates a reliable, Bluetooth-monitored core for a couple's campervan. Add a 175W–200W solar panel and a DC-DC charger, and you have a system that will comfortably run a compressor fridge, lights, and device charging through a UK summer. For full-time winter use, step up to a self-heating battery and a 100/30 controller.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ABOUT SECTION                                                -->
+  <!-- ============================================================ -->
+  <section class="about-section" id="about">
+    <div class="container about-wrap">
+      <div class="about-img"><img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&q=80&auto=format&fit=crop" alt="Traveler portrait" loading="lazy"></div>
+      <div class="about-text">
+        <span class="eyebrow" style="font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); font-weight: 600; display: block; margin-bottom: 0.6rem;">Hello, we're the Van-lifer</span>
+        <h2>Storytellers, wanderers, coffee enthusiasts.</h2>
+        <p>We hit the road full-time in 2026, trading a desk job for a van, a solar panel and a one-way ticket. Our goal is simple: show you that meaningful travel doesn't require a huge budget or a perfect plan.</p>
+        <p>On this site you'll find practical guides, honest off-grid power advice, and the occasional ramble about life on the move. Thanks for stopping by — we're glad you're here.</p>
+        <div class="socials">
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.1a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4z"/></svg></a>
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M22.2 5.9c-.8.4-1.7.6-2.6.8.9-.5 1.6-1.4 1.9-2.4-.9.5-1.8.9-2.8 1.1-.8-.9-2-1.5-3.3-1.5-2.5 0-4.5 2-4.5 4.5 0 .4 0 .7.1 1-3.7-.2-7-2-9.2-4.7-.4.7-.6 1.4-.6 2.3 0 1.6.8 2.9 2 3.7-.7 0-1.4-.2-2-.5v.1c0 2.2 1.6 4 3.7 4.4-.4.1-.8.2-1.2.2-.3 0-.6 0-.9-.1.6 1.8 2.3 3.1 4.3 3.1-1.6 1.2-3.5 1.9-5.6 1.9-.4 0-.7 0-1.1-.1 2 1.3 4.4 2 6.9 2 8.3 0 12.8-6.9 12.8-12.8v-.6c.9-.6 1.6-1.4 2.2-2.3z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a href="#" class="logo">The <span>Van-lifers</span></a>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#vanlife">Vanlife Guide</a></li>
+        <li><a href="#selfbuild">Self-Build</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <p class="copy">© <span id="year"></span> The Van-lifers · Made with wander, wonder and a little sunshine.</p>
+    </div>
+  </footer>
+
+  <div id="bg-music-player" style="position:fixed; bottom:0; left:0; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
+  <div id="music-prompt" style="position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:3000; background:var(--ink); color:#fff; padding:0.75rem 1.5rem; border-radius:999px; font-size:0.85rem; font-weight:500; display:flex; align-items:center; gap:0.5rem; box-shadow:0 8px 24px rgba(0,0,0,0.25); cursor:pointer; transition:opacity 0.4s;">
+    🎵 Click anywhere to play music (once)
+  </div>
+
+  <script>
+    /* ============================================================
+       WILD CAMPING SPOTS
+       ============================================================ */
+    const wildCampingSpots = [
+      {
+        name: "The Sharr Mountains",
+        place: "Kosovo & North Macedonia",
+        county: "Balkans",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping",
+        description: "Rugged, rocky and imposing mountains stretching from southern Kosovo into North Macedonia. Trek the High Scardus Trail — the ‘Soul of the Balkans’ — with plenty of wild camping opportunities. Bears, boars, lynx and deer are possible sightings. Tito summit (2,748m) is the second-highest in North Macedonia.",
+        tags: "wild camping balkans kosovo north macedonia"
+      },
+      {
+        name: "Nærøyfjord",
+        place: "Western Norway",
+        county: "Vestland",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping",
+        description: "A UNESCO-listed fjord with sheer limestone cliffs rising on either side, accessible only by water. Kayak from Gudvangen (a short distance from Bergen), paddle around 7.4 miles (12km), then camp by the fjord shores. Seals and waterfalls are likely companions. A guide will pick a campsite near the trailhead for Breiskrednosi (1,189m).",
+        tags: "wild camping norway fjord scandinavia"
+      },
+      {
+        name: "Vatnajökull National Park",
+        place: "Iceland",
+        county: "South Iceland",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping (1 night, uncultivated land)",
+        description: "Trek through canyons, past waterfalls and across lava fields, and traverse the ice of Skeiðarárjökull glacier. Wild camping in a tent is restricted to uncultivated land for one night, provided there is no campsite nearby and the landowner has not restricted access. This encourages a proper multi-day trip — one night in a canyon, another beside a glacier, another overlooking floating icebergs.",
+        tags: "wild camping iceland scandinavia"
+      },
+      {
+        name: "Ionian Archipelago",
+        place: "Greece",
+        county: "Ionian Islands",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping",
+        description: "Hire a kayak and paddle around the Ionian Archipelago in search of quiet beaches. Thilia is a small, uninhabited island with private sandy beaches enclosed by forest. Meganisi has good spots too, such as Limonari Beach. Pitch above the high tide line so you don’t wake up with waves at your feet.",
+        tags: "wild camping greece ionian"
+      },
+      {
+        name: "Menorca",
+        place: "Balearic Islands",
+        county: "Spain",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping",
+        description: "Hop in a kayak at Cala Sant Esteve and discover the silent, sublime coastline that marks the borders of this wonderful island. Crystal-clear waters merge to darker blues, and huge white rocky cliffs dwarf you in the water. At night, set up your bivvy or camp spot on idyllic beaches, with not another soul in sight.",
+        tags: "wild camping spain menorca balearics"
+      },
+      {
+        name: "Tara River Canyon",
+        place: "Montenegro",
+        county: "Balkans",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping",
+        description: "Crystal-clear waters, lush forests and enclosing mountains. The best way to explore? By packraft — an inflatable kayak you can pack down and hike with. This gives access to areas unreachable by normal hiking or paddling. Pitch your tent just a few metres from the water and fall asleep to the sound of the stream.",
+        tags: "wild camping montenegro balkans"
+      },
+      {
+        name: "Ardnish Peninsula",
+        place: "Scotland",
+        county: "Highland",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping (legal in Scotland)",
+        description: "Wild camping is legal in Scotland under the Land Reform (Scotland) Act 2003. The Ardnish Peninsula has no roads and is uninhabited, though it has a history of human habitation dating back to before the Romans. Fine views across the water to the isles of Eigg and Rum. Another option is to hire a kayak and find an islet of your own in the nearby Sound of Arisaig.",
+        tags: "wild camping scotland uk highland"
+      },
+      {
+        name: "Spitsbergen, Svalbard",
+        place: "Norway",
+        county: "Arctic Circle",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping (guided only)",
+        description: "An archipelago in the Arctic Circle where polar bears outnumber people. Reach it by flying to Longyearbyen, then leave on foot dragging gear in pulkas (small sleds). You can only leave the settlement with a guide armed with a rifle — their expert knowledge is invaluable. Set up camp in the afternoon and take shifts watching for polar bears. A surreal, otherworldly experience.",
+        tags: "wild camping norway svalbard arctic"
+      },
+      {
+        name: "Lofoten Islands",
+        place: "Norway",
+        county: "Nordland",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping",
+        description: "Distinctive sharp peaks rise steeply from the ocean, with traditional red wooden houses nestling into the rocky shorelines of deep fjords. Wild camping is permitted, although there are several prohibited areas your guide will know. Visit in June for 24-hour daylight — plenty of time to set up camp and immerse yourself in nature. You might camp on a beach, on rugged grassland or even on a tiny uninhabited island.",
+        tags: "wild camping norway lofoten scandinavia"
+      },
+      {
+        name: "Isle of Rùm",
+        place: "Scotland",
+        county: "Small Isles",
+        type: "Wild Camping",
+        badgeClass: "wild",
+        price: "Free · wild camping (legal in Scotland)",
+        description: "One of Scotland’s Small Isles, by far the most mountainous. The main ridgeline — the Rùm Cuillin — is similar to the Cuillin on Skye in rock type (gabbro) and scrambling terrain, without the huge footfall. Only around 30 people live on Rùm. Set out on a multi-day wild camping expedition — staying near the bothy at Guirdil, beneath the wild ponies of Harris, and at the sea stack of Papadil — before camping at Dibidil and returning via the Rùm Cuillin.",
+        tags: "wild camping scotland uk small isles"
+      }
+    ];
+
+    /* ============================================================
+       STOPOVER DATA
+       ============================================================ */
+    const allStopovers = [
+      /* ================= UNITED KINGDOM ================= */
+      { name: "Chrome Hill Campers", place: "Hollinsclough", county: "Staffordshire", postcode: "SK17 0RH", lat: 53.199, lng: -1.899, type: "Campsite", badgeClass: "campsite", price: "£25 / night", description: "Far-reaching views from one of the highest touring sites in England, overlooking Chrome Hill. Campervans only, 5 pitches.", tags: "uk england peak district staffordshire" },
+      { name: "Castle Howard Lakeside Holiday Park", place: "York", county: "North Yorkshire", postcode: "YO60 7DA", lat: 54.122, lng: -0.901, type: "Holiday Park", badgeClass: "park", price: "£20–£35 / night", description: "Hardstanding and grass pitches on the Castle Howard Estate, with an on-site shop. Open all year.", tags: "uk england yorkshire" },
+      { name: "Bank Top Camping", place: "Pickering", county: "North Yorkshire", postcode: "YO18 7NQ", lat: 54.245, lng: -0.776, type: "Campsite", badgeClass: "campsite", price: "£15–£25 / night", description: "Peaceful campsite on the edge of the North York Moors with a small cafe.", tags: "uk england yorkshire" },
+      { name: "Riverside Caravan Park", place: "Bentham", county: "North Yorkshire", postcode: "LA2 7LR", lat: 54.118, lng: -2.510, type: "Campsite", badgeClass: "campsite", price: "£18–£26 / night", description: "Riverside family and dog friendly touring, 15 minutes to the Yorkshire Dales.", tags: "uk england yorkshire dales" },
+      { name: "Wold Farm Campsite", place: "Flamborough", county: "East Yorkshire", postcode: "YO15 1AE", lat: 54.131, lng: -0.107, type: "Campsite", badgeClass: "campsite", price: "£18–£26 / night", description: "Clifftop campsite on Flamborough Head, with puffins and seabird colonies.", tags: "uk england yorkshire coast" },
+      { name: "Graffitoe Farm", place: "Hunmanby, Filey", county: "North Yorkshire", postcode: "YO14 0LP", lat: 54.185, lng: -0.320, type: "Working Farm", badgeClass: "farm", price: "£20–£28 / night", description: "Well-kept farm campsite a few miles from Filey.", tags: "uk england yorkshire coast farm" },
+      { name: "Woodhouse Farm", place: "Ripon", county: "North Yorkshire", postcode: "HG4 3HX", lat: 54.167, lng: -1.583, type: "Working Farm", badgeClass: "farm", price: "£18–£28 / night", description: "Working farm campsite near Ripon with views over the Dales.", tags: "uk england yorkshire dales farm" },
+      { name: "Flaxton Meadows", place: "York", county: "North Yorkshire", postcode: "YO60 7RT", lat: 54.057, lng: -1.033, type: "Adults-Only", badgeClass: "adults", price: "£25–£35 / night", description: "Eco-friendly adults-only touring park 15 minutes from York.", tags: "uk england yorkshire adults" },
+      { name: "Royal Umpire Caravan Park", place: "Croston, Leyland", county: "Lancashire", postcode: "PR26 9JB", lat: 53.661, lng: -2.774, type: "Holiday Park", badgeClass: "park", price: "£25–£38 / night", description: "Well-kept park with landscaped gardens and a play area.", tags: "uk england lancashire" },
+      { name: "Primrose Cottage Camping", place: "Chorley", county: "Lancashire", postcode: "PR7 5SJ", lat: 53.653, lng: -2.632, type: "Adults-Only", badgeClass: "adults", price: "£15–£22 / night", description: "Back-to-basics adult-only site below Healey Nab.", tags: "uk england lancashire adults" },
+      { name: "Moss Wood Caravan Park", place: "Cockerham", county: "Lancashire", postcode: "LA2 0HA", lat: 53.964, lng: -2.830, type: "Campsite", badgeClass: "campsite", price: "£25–£35 / night", description: "Quiet, well-kept touring park between Lancaster and the Fylde coast.", tags: "uk england lancashire" },
+      { name: "Beacon Fell View Holiday Park", place: "Longridge", county: "Lancashire", postcode: "PR3 2NL", lat: 53.852, lng: -2.607, type: "Holiday Park", badgeClass: "park", price: "£25–£40 / night", description: "Lodge and touring park on the edge of Beacon Fell Country Park.", tags: "uk england lancashire ribble" },
+      { name: "Bowland Fell Park", place: "Tosside", county: "Lancashire", postcode: "BD24 9RS", lat: 54.024, lng: -2.337, type: "Holiday Park", badgeClass: "park", price: "£20–£32 / night", description: "Tranquil park in the Forest of Bowland with fell views.", tags: "uk england lancashire bowland" },
+      { name: "Wyresdale Park", place: "Scorton", county: "Lancashire", postcode: "PR3 1BA", lat: 53.927, lng: -2.735, type: "Campsite", badgeClass: "campsite", price: "£25–£35 / night", description: "Estate campsite with lakeside pitches, a café and woodland walks.", tags: "uk england lancashire bowland" },
+      { name: "The Cartford Inn", place: "Little Eccleston", county: "Lancashire", postcode: "PR3 0YP", lat: 53.858, lng: -2.857, type: "Pub Stopover", badgeClass: "pub", price: "Free with a meal · ring ahead", description: "Award-winning gastropub by the Cartford toll bridge.", tags: "uk england lancashire fylde" },
+      { name: "The Parkers Arms", place: "Newton-in-Bowland", county: "Lancashire", postcode: "BB7 3DY", lat: 53.955, lng: -2.437, type: "Pub Stopover", badgeClass: "pub", price: "Free with a meal · ring ahead", description: "Renowned food pub deep in the Forest of Bowland.", tags: "uk england lancashire ribble bowland" },
+      { name: "Edisford Bridge Farm", place: "Clitheroe", county: "Lancashire", postcode: "BB7 3LH", lat: 53.879, lng: -2.415, type: "Working Farm", badgeClass: "farm", price: "£18–£25 / night", description: "Riverside campsite on the Ribble at the foot of Clitheroe.", tags: "uk england lancashire ribble farm" },
+      { name: "The Inn at Whitewell", place: "Whitewell", county: "Lancashire", postcode: "BB7 3AT", lat: 53.927, lng: -2.478, type: "Pub Stopover", badgeClass: "pub", price: "Free with a meal · ring ahead", description: "Historic riverside inn in the heart of the Forest of Bowland.", tags: "uk england lancashire ribble bowland" },
+      { name: "Sykeside Camping Park", place: "Patterdale", county: "Cumbria", postcode: "CA11 0NZ", lat: 54.536, lng: -2.938, type: "Campsite", badgeClass: "campsite", price: "£20–£30 / night", description: "Lake District camping park with an on-site pub and shop.", tags: "uk england lake district cumbria" },
+      { name: "Baystone Bank Farm Campsite", place: "Millom", county: "Cumbria", postcode: "LA18 5LY", lat: 54.263, lng: -3.282, type: "Working Farm", badgeClass: "farm", price: "£16–£24 / night", description: "Quiet family-run site in the south-west Lakes.", tags: "uk england lake district cumbria farm" },
+      { name: "Park Cliffe Camping & Caravan Estate", place: "Windermere", county: "Cumbria", postcode: "LA23 3PG", lat: 54.359, lng: -2.899, type: "Campsite", badgeClass: "campsite", price: "£25–£40 / night", description: "Well-equipped campsite near Windermere.", tags: "uk england lake district cumbria" },
+      { name: "Side Farm", place: "Patterdale", county: "Cumbria", postcode: "CA11 0NP", lat: 54.533, lng: -2.933, type: "Working Farm", badgeClass: "farm", price: "£18–£26 / night", description: "Working farm campsite at the head of Ullswater.", tags: "uk england lake district farm" },
+      { name: "Sykes Farm", place: "Buttermere", county: "Cumbria", postcode: "CA13 9XA", lat: 54.533, lng: -3.267, type: "Working Farm", badgeClass: "farm", price: "£15–£25 / night", description: "Farm campsite at the head of Buttermere.", tags: "uk england lake district farm" },
+      { name: "Church Stile Farm", place: "Nether Wasdale", county: "Cumbria", postcode: "CA20 1ET", lat: 54.400, lng: -3.283, type: "Working Farm", badgeClass: "farm", price: "£18–£28 / night", description: "Farm campsite in the Wasdale valley, with access to Scafell Pike.", tags: "uk england lake district farm" },
+      { name: "White Peak Camping", place: "Buxton", county: "Derbyshire", postcode: "SK17 8SZ", lat: 53.251, lng: -1.875, type: "Campsite", badgeClass: "campsite", price: "£13 / night", description: "Camping on a Peak District farm near the Monsal Trail.", tags: "uk england peak district derbyshire" },
+      { name: "Peak Gateway", place: "Ashbourne", county: "Derbyshire", postcode: "DE6 1LG", lat: 53.043, lng: -1.733, type: "Campsite", badgeClass: "campsite", price: "£20–£30 / night", description: "Family-friendly site on the edge of the Peak District.", tags: "uk england peak district derbyshire" },
+      { name: "Longnor Wood Holiday Park", place: "Longnor", county: "Derbyshire", postcode: "SK17 0NG", lat: 53.190, lng: -1.860, type: "Adults-Only", badgeClass: "adults", price: "£26–£36 / night", description: "Adults-only park on the edge of the Peak District.", tags: "uk england peak district derbyshire adults" },
+      { name: "Yorkshire Bridge Inn", place: "Bamford", county: "Derbyshire", postcode: "S33 0AZ", lat: 53.351, lng: -1.705, type: "Pub Stopover", badgeClass: "pub", price: "Free with a meal · ring ahead", description: "Riverside inn at the foot of Ladybower Reservoir.", tags: "uk england peak district derbyshire" },
+      { name: "Rowter Farm", place: "Castleton", county: "Derbyshire", postcode: "S33 8WA", lat: 53.333, lng: -1.783, type: "Working Farm", badgeClass: "farm", price: "£10–£15 / night", description: "Rustic hillside farm campsite above Castleton.", tags: "uk england peak district farm" },
+      { name: "Ollerbrook Farm", place: "Edale", county: "Derbyshire", postcode: "S33 7ZA", lat: 53.367, lng: -1.817, type: "Working Farm", badgeClass: "farm", price: "£10–£18 / night", description: "Working farm campsite in the heart of Edale.", tags: "uk england peak district farm" },
+      { name: "Eweleaze Farm", place: "Osmington, Weymouth", county: "Dorset", postcode: "DT3 6ED", lat: 50.633, lng: -2.417, type: "Working Farm", badgeClass: "farm", price: "£15–£28 / night", description: "Famous pop-up farm campsite above Osmington Mills, open for August only.", tags: "uk england dorset farm" },
+      { name: "Sea Barn Farm", place: "Weymouth", county: "Dorset", postcode: "DT3 4ED", lat: 50.600, lng: -2.517, type: "Working Farm", badgeClass: "farm", price: "£20–£32 / night", description: "Clifftop farm campsite with views over Chesil Beach.", tags: "uk england dorset farm" },
+      { name: "Sweet Hill Farm", place: "Portland", county: "Dorset", postcode: "DT5 2LQ", lat: 50.533, lng: -2.450, type: "Working Farm", badgeClass: "farm", price: "£18–£28 / night", description: "Rural farm campsite on the Isle of Portland.", tags: "uk england dorset farm" },
+      { name: "Back of Beyond Touring Park", place: "Ringwood", county: "Dorset", postcode: "BH24 2BT", lat: 50.817, lng: -1.800, type: "Adults-Only", badgeClass: "adults", price: "£28–£40 / night", description: "Multi-award-winning adults-only touring park at the gateway to the New Forest.", tags: "uk england dorset adults" },
+      { name: "North Morte Farm", place: "Mortehoe, Woolacombe", county: "Devon", postcode: "EX34 7EG", lat: 51.185, lng: -4.200, type: "Working Farm", badgeClass: "farm", price: "£18–£28 / night", description: "Working farm campsite in an Area of Outstanding Natural Beauty above Mortehoe.", tags: "uk england devon farm" },
+      { name: "Warcombe Farm", place: "Woolacombe", county: "Devon", postcode: "EX34 7EJ", lat: 51.183, lng: -4.217, type: "Working Farm", badgeClass: "farm", price: "£20–£32 / night", description: "Award-winning farm campsite near Woolacombe with a fishing lake.", tags: "uk england devon farm" },
+      { name: "Sunnymead Farm", place: "Ilfracombe", county: "Devon", postcode: "EX34 9RW", lat: 51.217, lng: -4.117, type: "Working Farm", badgeClass: "farm", price: "£18–£28 / night", description: "Small working farm campsite with sea views towards Lundy.", tags: "uk england devon farm" },
+      { name: "Damage Barton", place: "Woolacombe", county: "Devon", postcode: "EX34 7EJ", lat: 51.185, lng: -4.206, type: "Working Farm", badgeClass: "farm", price: "£20–£32 / night", description: "Clifftop working farm campsite with sea views over Woolacombe.", tags: "uk england devon farm" },
+      { name: "Minnows Touring Park", place: "Tiverton", county: "Devon", postcode: "EX16 7EY", lat: 50.917, lng: -3.450, type: "Adults-Only", badgeClass: "adults", price: "£25–£35 / night", description: "Exclusively for guests aged 14 and over, just half a mile from the M5.", tags: "uk england devon adults" },
+      { name: "Widdicombe Farm Touring Park", place: "Torquay", county: "Devon", postcode: "TQ3 1ST", lat: 50.467, lng: -3.550, type: "Adults-Only", badgeClass: "adults", price: "£22–£32 / night", description: "Adults-only touring park in the heart of the English Riviera.", tags: "uk england devon adults" },
+      { name: "Oakmoor Touring Park", place: "Bovey Tracey, Newton Abbot", county: "Devon", postcode: "TQ13 9NG", lat: 50.583, lng: -3.667, type: "Adults-Only", badgeClass: "adults", price: "£22–£32 / night", description: "Peaceful adult-only (16+) and dog friendly park next to a nature reserve.", tags: "uk england devon adults" },
+      { name: "Newberry Valley Park", place: "Combe Martin", county: "Devon", postcode: "EX34 0AT", lat: 51.200, lng: -4.030, type: "Adults-Only", badgeClass: "adults", price: "£26–£36 / night", description: "Adults-only park in a wooded valley a short walk from the beach.", tags: "uk england devon adults" },
+      { name: "Trevedra Farm", place: "Sennen, Penzance", county: "Cornwall", postcode: "TR19 7BP", lat: 50.070, lng: -5.700, type: "Working Farm", badgeClass: "farm", price: "£20–£30 / night", description: "Working farm campsite within walking distance of Gwenver and Sennen beaches.", tags: "uk england cornwall farm" },
+      { name: "Treen Farm Campsite", place: "Treen, St Levan", county: "Cornwall", postcode: "TR19 6LF", lat: 50.050, lng: -5.667, type: "Working Farm", badgeClass: "farm", price: "£18–£28 / night", description: "Simple National Trust farm campsite with views to Logan Rock and Pedn Vounder.", tags: "uk england cornwall farm" },
+      { name: "Gwithian Farm", place: "Hayle", county: "Cornwall", postcode: "TR27 5BX", lat: 50.217, lng: -5.383, type: "Working Farm", badgeClass: "farm", price: "£20–£30 / night", description: "Popular farm campsite near Gwithian Towans and three miles of golden sand.", tags: "uk england cornwall farm" },
+      { name: "Trethem Mill", place: "St Just in Roseland", county: "Cornwall", postcode: "TR2 5JF", lat: 50.183, lng: -5.017, type: "Adults-Only", badgeClass: "adults", price: "£28–£40 / night", description: "Multi-award-winning adults-only site in an Area of Outstanding Natural Beauty.", tags: "uk england cornwall adults" },
+      { name: "Cosawes Park", place: "Truro", county: "Cornwall", postcode: "TR3 7QS", lat: 50.217, lng: -5.100, type: "Adults-Only", badgeClass: "adults", price: "£22–£32 / night", description: "Secluded adults-only touring park in a 100-acre valley just outside Truro.", tags: "uk england cornwall adults" },
+      { name: "Henry's Campsite", place: "The Lizard", county: "Cornwall", postcode: "TR12 7PG", lat: 49.960, lng: -5.203, type: "Campsite", badgeClass: "campsite", price: "£15–£25 / night", description: "Quirky, bohemian site with sea views and a pizza oven.", tags: "uk england cornwall" },
+      { name: "Durdle Door Holiday Park", place: "Wareham", county: "Dorset", postcode: "BH20 5PU", lat: 50.621, lng: -2.276, type: "Holiday Park", badgeClass: "park", price: "£30–£45 / night", description: "Convenient base for Durdle Door and Lulworth Cove.", tags: "uk england dorset south" },
+      { name: "The Old Oaks Touring Park", place: "Glastonbury", county: "Somerset", postcode: "BA6 8NA", lat: 51.140, lng: -2.740, type: "Adults-Only", badgeClass: "adults", price: "£30–£42 / night", description: "One of the UK's best-known adults-only parks.", tags: "uk england somerset adults" },
+      { name: "Cotswold Farm Park", place: "Guiting Power, Cheltenham", county: "Gloucestershire", postcode: "GL54 5UG", lat: 51.917, lng: -1.883, type: "Working Farm", badgeClass: "farm", price: "£22–£35 / night", description: "Adam Henson's Cotswold Farm Park — a working rare-breeds farm with a superb campsite.", tags: "uk england cotswolds farm" },
+      { name: "Moreton-in-Marsh Caravan Club Site", place: "Moreton-in-Marsh", county: "Gloucestershire", postcode: "GL56 0BT", lat: 51.990, lng: -1.700, type: "Campsite", badgeClass: "campsite", price: "£22–£32 / night", description: "Well-placed site for exploring the Cotswolds.", tags: "uk england cotswolds" },
+      { name: "Penn Meadow Farm", place: "Beaconsfield", county: "Buckinghamshire", postcode: "HP9 2UR", lat: 51.612, lng: -0.647, type: "Working Farm", badgeClass: "farm", price: "£15–£25 / night", description: "145-acre family farm in the Chiltern Hills, with resident alpacas.", tags: "uk england chilterns farm" },
+      { name: "Herding Hill Farm", place: "Haltwhistle", county: "Northumberland", postcode: "NE49 9NW", lat: 54.983, lng: -2.467, type: "Working Farm", badgeClass: "farm", price: "£20–£30 / night", description: "Award-winning farm campsite below Hadrian's Wall.", tags: "uk england northumberland farm" },
+      { name: "Demesne Farm", place: "Bellingham", county: "Northumberland", postcode: "NE48 2BS", lat: 55.133, lng: -2.250, type: "Working Farm", badgeClass: "farm", price: "£15–£22 / night", description: "Working hill farm campsite in the North Tyne valley.", tags: "uk england northumberland farm" },
+      { name: "Normans Bay Camping", place: "Pevensey", county: "East Sussex", postcode: "BN24 6PR", lat: 50.812, lng: 0.388, type: "Campsite", badgeClass: "campsite", price: "£18–£28 / night", description: "Beachside campsite between Eastbourne and Bexhill.", tags: "uk england sussex south" },
+      { name: "Fairfields Farm", place: "Pevensey", county: "East Sussex", postcode: "BN24 5BT", lat: 50.817, lng: 0.333, type: "Adults-Only", badgeClass: "adults", price: "£20–£28 / night", description: "Peaceful adults-only site in a nature reserve on the Pevensey Levels.", tags: "uk england sussex adults" },
+      { name: "Daleacres Camping", place: "Hythe", county: "Kent", postcode: "CT21 5XW", lat: 51.071, lng: 1.080, type: "Campsite", badgeClass: "campsite", price: "£18–£26 / night", description: "Quiet site on the edge of Romney Marsh.", tags: "uk england kent south" },
+      { name: "Sandringham Camping & Caravanning Site", place: "Sandringham", county: "Norfolk", postcode: "PE35 6AB", lat: 52.828, lng: 0.514, type: "Campsite", badgeClass: "campsite", price: "£20–£30 / night", description: "Woodland campsite on the Sandringham Estate.", tags: "uk england norfolk" },
+      { name: "Cliff House Holiday Park", place: "Dunwich", county: "Suffolk", postcode: "IP17 3DW", lat: 52.273, lng: 1.631, type: "Holiday Park", badgeClass: "park", price: "£25–£40 / night", description: "Wooded holiday park near Dunwich Heath.", tags: "uk england suffolk" },
+      { name: "Stroud Hill Park", place: "Pidley", county: "Cambridgeshire", postcode: "PE28 3DE", lat: 52.400, lng: -0.060, type: "Adults-Only", badgeClass: "adults", price: "£22–£30 / night", description: "Quiet adults-only site with generous pitches.", tags: "uk england cambridgeshire adults" },
+
+      /* ================= SCOTLAND ================= */
+      { name: "Moffat Camping and Caravanning Club Site", place: "Moffat", county: "Dumfries and Galloway", postcode: "DG10 9RT", lat: 55.333, lng: -3.442, type: "Campsite", badgeClass: "campsite", price: "From ~£10", description: "An easy first or last stop on a Scotland route.", tags: "uk scotland south" },
+      { name: "Stonehaven Queen Elizabeth Park", place: "Stonehaven", county: "Aberdeenshire", postcode: "AB39 2RD", lat: 56.963, lng: -2.211, type: "Campsite", badgeClass: "campsite", price: "£18–£46", description: "All-hardstanding pitches with serviced and 16A hook-up.", tags: "uk scotland east" },
+      { name: "Blair Castle Caravan Park", place: "Blair Atholl", county: "Perthshire", postcode: "PH18 5SR", lat: 56.769, lng: -3.845, type: "Campsite", badgeClass: "campsite", price: "~£37–£51", description: "Mixed pitches with serviced and 10/16A hook-up.", tags: "uk scotland cairngorms perthshire" },
+      { name: "Grantown-on-Spey Caravan Park", place: "Grantown-on-Spey", county: "Highland", postcode: "PH26 3HF", lat: 57.331, lng: -3.609, type: "Campsite", badgeClass: "campsite", price: "~£28–£46", description: "Mixed pitches with serviced and 10/16A hook-up.", tags: "uk scotland cairngorms highland" },
+      { name: "Braemar Caravan Park", place: "Braemar", county: "Aberdeenshire", postcode: "AB35 5YQ", lat: 57.006, lng: -3.399, type: "Campsite", badgeClass: "campsite", price: "~£30–£45+", description: "All-hardstanding pitches with grey waste and 16A hook-up.", tags: "uk scotland cairngorms" },
+      { name: "Glen Nevis Caravan and Camping Park", place: "Fort William", county: "Highland", postcode: "PH33 6SX", lat: 56.804, lng: -5.095, type: "Campsite", badgeClass: "campsite", price: "~£37–£53", description: "Big site at the foot of Ben Nevis.", tags: "uk scotland west highlands" },
+      { name: "Linnhe Lochside Holidays", place: "Corpach", county: "Highland", postcode: "PH33 7NL", lat: 56.842, lng: -5.123, type: "Campsite", badgeClass: "campsite", price: "~£35–£41", description: "All-hardstanding pitches with grey waste and 10A hook-up.", tags: "uk scotland west highlands" },
+      { name: "North Ledaig Caravan Park", place: "Oban", county: "Argyll", postcode: "PA37 1RW", lat: 56.456, lng: -5.396, type: "Campsite", badgeClass: "campsite", price: "~£30–£40", description: "Nearly all-hardstanding pitches on the coast near Oban.", tags: "uk scotland west highlands argyll" },
+      { name: "Foresterseat Holiday Park", place: "Forfar", county: "Dundee & Angus", postcode: "DD8 2RY", lat: 56.633, lng: -2.883, type: "Adults-Only", badgeClass: "adults", price: "£25–£35 / night", description: "Award-winning adults-only site in the Angus countryside.", tags: "uk scotland angus adults" },
+      { name: "Applecross Campsite", place: "Applecross", county: "Highland", postcode: "IV54 8ND", lat: 57.433, lng: -5.813, type: "Campsite", badgeClass: "campsite", price: "£18–£28 / night", description: "Reached over the Bealach na Bà pass.", tags: "uk scotland nc500" },
+      { name: "Sango Sands Oasis", place: "Durness", county: "Highland", postcode: "IV27 4PZ", lat: 58.568, lng: -4.746, type: "Campsite", badgeClass: "campsite", price: "£18–£28 / night", description: "Clifftop pitches above Sango Bay.", tags: "uk scotland nc500" },
+      { name: "John o' Groats Caravan and Camping Site", place: "John o' Groats", county: "Highland", postcode: "KW1 4YR", lat: 58.637, lng: -3.070, type: "Campsite", badgeClass: "campsite", price: "£18–£28 / night", description: "Next to the famous signpost.", tags: "uk scotland nc500" },
+      { name: "Bettyhill Caravan & Camping Site", place: "Bettyhill", county: "Highland", postcode: "KW14 7SP", lat: 58.528, lng: -4.223, type: "Campsite", badgeClass: "campsite", price: "£15–£25 / night", description: "Great location by Farr Bay.", tags: "uk scotland nc500" },
+      { name: "Wick River Campsite", place: "Wick", county: "Highland", postcode: "KW1 4YR", lat: 58.438, lng: -3.088, type: "Campsite", badgeClass: "campsite", price: "£15–£25 / night", description: "Peaceful site by the River Wick.", tags: "uk scotland nc500" },
+      { name: "Kinlochbervie Loch Clash", place: "Kinlochbervie", county: "Sutherland", postcode: "IV27 4RP", lat: 58.459, lng: -5.055, type: "Pier Stopover", badgeClass: "aire", price: "£10–£15 / night", description: "Pier-side stopover with space for 10 vans.", tags: "uk scotland" },
+      { name: "Red Squirrel Campsite", place: "Glencoe", county: "Highland", postcode: "PH49 4HX", lat: 56.669, lng: -5.102, type: "Campsite", badgeClass: "campsite", price: "£15–£25 / night", description: "Legendary site at the foot of the Glencoe mountains.", tags: "uk scotland" },
+      { name: "Glenbrittle Campsite", place: "Isle of Skye", county: "Highland", postcode: "IV47 8TA", lat: 57.204, lng: -6.297, type: "Campsite", badgeClass: "campsite", price: "£12–£20 / night", description: "At the foot of the Cuillin mountains.", tags: "uk scotland" },
+      { name: "Sunnyside Croft Touring Site", place: "Arisaig", county: "Highland", postcode: "PH39 4NT", lat: 56.917, lng: -5.850, type: "Working Farm", badgeClass: "farm", price: "£18–£26 / night", description: "Croft campsite with views over to the Small Isles.", tags: "uk scotland highlands farm" },
+      { name: "Clachtoll Beach Croft", place: "Lochinver", county: "Highland", postcode: "IV27 4JD", lat: 58.183, lng: -5.350, type: "Working Farm", badgeClass: "farm", price: "£18–£26 / night", description: "Croft campsite above Clachtoll Beach.", tags: "uk scotland highlands farm" },
+      { name: "Achmelvich Beach", place: "Achmelvich, by Lochinver", county: "Highland", postcode: "IV27 4JB", lat: 58.167, lng: -5.317, type: "Working Farm", badgeClass: "farm", price: "£15–£22 / night", description: "Simple croft campsite right behind Achmelvich Beach.", tags: "uk scotland highlands farm" },
+
+      /* ================= WALES ================= */
+      { name: "Llyn Gwynant Campsite", place: "Nant Gwynant", county: "Gwynedd", postcode: "LL55 4NW", lat: 53.050, lng: -4.000, type: "Campsite", badgeClass: "campsite", price: "£12–£20 / night", description: "Lakeside campsite in the heart of Snowdonia.", tags: "uk wales snowdonia gwynedd" },
+      { name: "Beddgelert Campsite", place: "Beddgelert", county: "Gwynedd", postcode: "LL55 4YF", lat: 53.012, lng: -4.100, type: "Campsite", badgeClass: "campsite", price: "£15–£25 / night", description: "A great base for exploring Eryri.", tags: "uk wales snowdonia gwynedd" },
+      { name: "Gwern Gof Isaf", place: "Capel Curig", county: "Conwy", postcode: "LL24 0ET", lat: 53.101, lng: -3.916, type: "Working Farm", badgeClass: "farm", price: "From approx. £10 per person/night", description: "Working farm campsite at the foot of Tryfan.", tags: "uk wales snowdonia conwy farm" },
+      { name: "Caerfai Bay Farm Campsite", place: "St Davids", county: "Pembrokeshire", postcode: "SA62 6QS", lat: 51.874, lng: -5.276, type: "Working Farm", badgeClass: "farm", price: "£22–£32 / night", description: "Clifftop farm campsite above a Blue Flag beach.", tags: "uk wales pembrokeshire farm" },
+      { name: "Porthclais Farm Campsite", place: "St Davids", county: "Pembrokeshire", postcode: "SA62 6RR", lat: 51.874, lng: -5.291, type: "Working Farm", badgeClass: "farm", price: "£18–£26 / night", description: "Farm campsite next to Porthclais harbour.", tags: "uk wales pembrokeshire farm" },
+      { name: "Trefalen Farm", place: "Bosherston, Pembroke", county: "Pembrokeshire", postcode: "SA71 5DR", lat: 51.617, lng: -5.010, type: "Working Farm", badgeClass: "farm", price: "£15–£22 / night", description: "National Trust farm campsite above Broad Haven South.", tags: "uk wales pembrokeshire farm" },
+      { name: "Caerffynnon Farm", place: "Aberffraw, Anglesey", county: "Isle of Anglesey", postcode: "LL63 5TG", lat: 53.194, lng: -4.464, type: "Working Farm", badgeClass: "farm", price: "£15–£22 / night", description: "Simple farm campsite near Aberffraw's dunes.", tags: "uk wales anglesey farm" },
+      { name: "Porth Iago", place: "Llanengan, Llyn Peninsula", county: "Gwynedd", postcode: "LL53 8LP", lat: 52.828, lng: -4.712, type: "Working Farm", badgeClass: "farm", price: "£12–£18 / night", description: "Tiny clifftop farm campsite above a private beach.", tags: "uk wales llyn farm" },
+      { name: "Masterland Farm", place: "Kilgetty", county: "Pembrokeshire", postcode: "SA68 0PE", lat: 51.732, lng: -4.720, type: "Campsite", badgeClass: "campsite", price: "£18–£28 / night", description: "Small family-run site ten minutes from Tenby.", tags: "uk wales pembrokeshire" },
+      { name: "Pencelli Castle Caravan & Camping Park", place: "Brecon", county: "Powys", postcode: "LD3 7LX", lat: 51.921, lng: -3.326, type: "Campsite", badgeClass: "campsite", price: "£22–£32 / night", description: "Well-kept park beside a 12th-century castle.", tags: "uk wales brecon powys" },
+      { name: "Daisy Bank Touring Caravan Park", place: "Montgomery", county: "Powys", postcode: "SY15 6EB", lat: 52.567, lng: -3.100, type: "Adults-Only", badgeClass: "adults", price: "£22–£32 / night", description: "Five-star, family-run adults-only site in the Welsh countryside.", tags: "uk wales powys adults" },
+      { name: "South Wales Touring Park (Lywnifan Farm)", place: "Llanelli", county: "Carmarthenshire", postcode: "SA14 8NE", lat: 51.700, lng: -4.117, type: "Adults-Only", badgeClass: "adults", price: "£22–£30 / night", description: "Award-winning adults-only touring park, a mile from the M4.", tags: "uk wales carmarthenshire adults" },
+      { name: "Morfa Bychan Holiday Park", place: "Aberystwyth", county: "Ceredigion", postcode: "SY23 3DT", lat: 52.434, lng: -4.079, type: "Holiday Park", badgeClass: "park", price: "£22–£35 / night", description: "Family-friendly park with sea view pitches.", tags: "uk wales midwales ceredigion" },
+      { name: "Black Rock Sands Touring Park", place: "Porthmadog", county: "Gwynedd", postcode: "LL49 9YH", lat: 52.917, lng: -4.167, type: "Campsite", badgeClass: "campsite", price: "£20–£30 / night", description: "Touring pitches right behind Black Rock Sands.", tags: "uk wales snowdonia gwynedd" },
+      { name: "Bryn Gloch Caravan & Camping Park", place: "Caernarfon", county: "Gwynedd", postcode: "LL55 2TY", lat: 53.113, lng: -4.219, type: "Campsite", badgeClass: "campsite", price: "£20–£30 / night", description: "Riverside touring park between Snowdon and Anglesey.", tags: "uk wales snowdonia gwynedd" },
+      { name: "Shell Island", place: "Llanbedr", county: "Gwynedd", postcode: "LL45 2PJ", lat: 52.815, lng: -4.107, type: "Campsite", badgeClass: "campsite", price: "£12–£22 / night", description: "Vast campsite on a peninsula between the sea and the dunes.", tags: "uk wales snowdonia gwynedd" },
+      { name: "Tyddyn Isaf Caravan Park", place: "Dulas, Anglesey", county: "Isle of Anglesey", postcode: "LL70 9PQ", lat: 53.350, lng: -4.262, type: "Campsite", badgeClass: "campsite", price: "£22–£32 / night", description: "Award-winning park on the north-east coast of Anglesey.", tags: "uk wales anglesey" },
+      { name: "Seaview Hotel", place: "Fishguard", county: "Pembrokeshire", postcode: "SA65 9PL", lat: 52.012, lng: -4.983, type: "Pub Stopover", badgeClass: "pub", price: "Free if you use the hotel", description: "Motorhomes welcome all year at this seafront hotel.", tags: "uk wales pembrokeshire" },
+
+      /* ================= IRELAND ================= */
+      { name: "The Shepherds Rest Campsite", place: "Draperstown", county: "Derry", postcode: "BT45 7BH", lat: 54.793, lng: -6.832, type: "Campsite", badgeClass: "campsite", price: "£25–£30 / night", description: "Nestled in the Sperrin Mountains.", tags: "ireland northern ireland derry" },
+      { name: "Standing Stones Lodge", place: "Belfast", county: "Co. Down", postcode: "BT8 8LE", lat: 54.549, lng: -5.933, type: "Campsite", badgeClass: "campsite", price: "£25–£35 / night", description: "Fully-serviced touring pitch on the outskirts of Belfast.", tags: "ireland northern ireland down" },
+      { name: "Bush Caravan Park", place: "Bushmills", county: "Co. Antrim", postcode: "BT57 8UJ", lat: 55.204, lng: -6.521, type: "Campsite", badgeClass: "campsite", price: "£25–£35 / night", description: "48 hardstanding pitches, all fully serviced.", tags: "ireland northern ireland antrim" },
+      { name: "Six Mile Water Caravan Park", place: "Antrim", county: "Co. Antrim", postcode: "BT41 4LD", lat: 54.717, lng: -6.217, type: "Campsite", badgeClass: "campsite", price: "£27–£30 / night", description: "37 hardstanding pitches with electric hook-up.", tags: "ireland northern ireland antrim" },
+      { name: "Goleen Harbour", place: "Goleen", county: "Co. Cork", postcode: "P81 XT95", lat: 51.500, lng: -9.700, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Sanctuary-like site with sweeping Atlantic views.", tags: "ireland cork west cork" },
+      { name: "Fanore Caravan Park", place: "Fanore", county: "Co. Clare", postcode: "V95 YX45", lat: 53.116, lng: -9.283, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Windswept beauty in West Clare.", tags: "ireland clare" },
+      { name: "Clifden Eco Beach Camping", place: "Clifden", county: "Co. Galway", postcode: "H71 XT95", lat: 53.483, lng: -10.017, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Eco-friendly campsite on the Connemara coast.", tags: "ireland galway connemara" },
+      { name: "Lough Key Forest Camping Park", place: "Boyle", county: "Co. Roscommon", postcode: "F52 XT95", lat: 53.967, lng: -8.300, type: "Campsite", badgeClass: "campsite", price: "€25–€40 / night", description: "Family-friendly park with zip lining and kayaking.", tags: "ireland roscommon" },
+      { name: "Castle Archdale Caravan Park", place: "Lisnarick", county: "Co. Fermanagh", postcode: "BT94 1PP", lat: 54.483, lng: -7.717, type: "Campsite", badgeClass: "campsite", price: "£20–£30 / night", description: "Lakeside park in the Fermanagh Lakelands.", tags: "ireland northern ireland fermanagh" },
+      { name: "Seaview Tavern", place: "Malin Head", county: "Co. Donegal", postcode: "F93 XT95", lat: 55.383, lng: -7.383, type: "Pub Stopover", badgeClass: "pub", price: "Free with a meal · ring ahead", description: "Ireland's most northerly pub and overnight stop.", tags: "ireland donegal" },
+      { name: "Paddy's Bar", place: "Carrigeen", county: "Co. Kilkenny", postcode: "X91 XT95", lat: 52.250, lng: -7.250, type: "Pub Stopover", badgeClass: "pub", price: "Free with a meal · ring ahead", description: "Motorhome pitches outside a friendly Co. Kilkenny pub.", tags: "ireland kilkenny" },
+
+      /* ================= FRANCE ================= */
+      { name: "Domaine de la Plage", place: "Meyras", county: "Ardèche", postcode: "", lat: 44.683, lng: 4.167, type: "Adults-Only", badgeClass: "adults", price: "€25–€85 / night", description: "Adults-only riverside retreat in the southern Ardèche.", tags: "france ardeche adults" },
+      { name: "Camping La Croix Badeau", place: "Soulaines-Dhuys", county: "Aube", postcode: "", lat: 48.367, lng: 4.550, type: "Adults-Only", badgeClass: "adults", price: "€18–€28 / night", description: "Extremely charming adults-only campsite with a swimming pool.", tags: "france champagne adults" },
+      { name: "Chateau de Lacomté", place: "Carlucet", county: "Occitanie", postcode: "", lat: 44.700, lng: 1.700, type: "Adults-Only", badgeClass: "adults", price: "€25–€40 / night", description: "Set on 32 acres of parkland within a Regional Natural Park.", tags: "france occitanie adults" },
+      { name: "Camp Laurent", place: "Saint-Laurent-de-Céris", county: "Charente", postcode: "", lat: 45.950, lng: 0.500, type: "Adults-Only", badgeClass: "adults", price: "€18–€28 / night", description: "Small, peaceful, dog-friendly site for adults only.", tags: "france charente adults" },
+      { name: "La Grenouille Vacances", place: "Saint-Michel-de-Montaigne", county: "Dordogne", postcode: "", lat: 44.867, lng: 0.033, type: "Adults-Only", badgeClass: "adults", price: "€22–€35 / night", description: "Described as a 'little paradise' for adults in the Dordogne.", tags: "france dordogne adults" },
+      { name: "Camping Le Brasilia", place: "Canet-en-Roussillon", county: "Pyrénées-Orientales", postcode: "", lat: 42.700, lng: 3.033, type: "Holiday Park", badgeClass: "park", price: "€40–€70 / night", description: "One of France's flagship 5-star campsites.", tags: "france occitanie" },
+      { name: "Camping Les Méditerranées", place: "Marseillan", county: "Hérault", postcode: "", lat: 43.350, lng: 3.533, type: "Holiday Park", badgeClass: "park", price: "€35–€55 / night", description: "Large 5-star resort near the Mediterranean.", tags: "france occitanie" },
+      { name: "Camping La Sirène", place: "Argelès-sur-Mer", county: "Pyrénées-Orientales", postcode: "", lat: 42.550, lng: 3.033, type: "Holiday Park", badgeClass: "park", price: "€30–€50 / night", description: "Big, lively holiday park near Argelès beach.", tags: "france occitanie" },
+      { name: "Camping Domaine de la Noguière", place: "Le Muy", county: "Var", postcode: "", lat: 43.467, lng: 6.567, type: "Holiday Park", badgeClass: "park", price: "€30–€45 / night", description: "Wooded park between Provence and the Côte d'Azur.", tags: "france provence" },
+      { name: "Huttopia Fontvieille", place: "Fontvieille", county: "Provence", postcode: "", lat: 43.717, lng: 4.700, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Huttopia nature campsite near Les Baux-de-Provence.", tags: "france provence" },
+      { name: "Huttopia Senonches", place: "Senonches", county: "Eure-et-Loir", postcode: "", lat: 48.550, lng: 1.033, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Huttopia site in the Perche regional park.", tags: "france loire" },
+      { name: "Flower Camping Les Gorges de l'Aveyron", place: "Saint-Antonin-Noble-Val", county: "Tarn-et-Garonne", postcode: "", lat: 44.150, lng: 1.750, type: "Campsite", badgeClass: "campsite", price: "€22–€35 / night", description: "Flower Campings member in a dramatic gorge setting.", tags: "france occitanie" },
+      { name: "Camping de la Plage", place: "Biscarrosse", county: "Landes", postcode: "", lat: 44.400, lng: -1.167, type: "Campsite", badgeClass: "campsite", price: "€25–€40 / night", description: "Campsite near the famous Biscarrosse beaches.", tags: "france landes" },
+      { name: "Aire de Honfleur - Le Plateau", place: "Honfleur", county: "Normandy", postcode: "", lat: 49.419, lng: 0.232, type: "Aire", badgeClass: "aire", price: "≈ €12 / night", description: "Clifftop aire with views over the Seine estuary.", tags: "france normandy" },
+      { name: "Aire de Cancale", place: "Cancale", county: "Brittany", postcode: "", lat: 48.676, lng: -1.852, type: "Aire", badgeClass: "aire", price: "≈ €10 / night", description: "Aire with views over the bay towards Mont-Saint-Michel.", tags: "france brittany" },
+      { name: "Camping des Abers", place: "Ploudalmézeau", county: "Brittany", postcode: "", lat: 48.550, lng: -4.650, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Campsite in the heart of Brittany.", tags: "france brittany" },
+      { name: "Camping du Mont Saint-Michel", place: "Mont Saint-Michel", county: "Normandy", postcode: "", lat: 48.617, lng: -1.517, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Well-placed campsite within walking distance of the abbey.", tags: "france normandy" },
+      { name: "Aire d'étape Les Pins", place: "La Faute-sur-Mer", county: "Vendée", postcode: "", lat: 46.333, lng: -1.317, type: "Aire", badgeClass: "aire", price: "€12–€18 / night", description: "Well-regarded aire near the beach on the Vendée coast.", tags: "france vendee" },
+      { name: "Camping de l'Orangerie de Beauregard", place: "Cellettes", county: "Loire Valley", postcode: "", lat: 47.533, lng: 1.383, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Campsite in the Loire Valley, close to the châteaux.", tags: "france loire" },
+      { name: "Aire de Saint-Émilion", place: "Saint-Émilion", county: "Gironde", postcode: "", lat: 44.893, lng: -0.156, type: "Aire", badgeClass: "aire", price: "≈ €12 / night", description: "Aire in the heart of the Bordeaux vineyards.", tags: "france bordeaux" },
+      { name: "Aire de Rocamadour", place: "Rocamadour", county: "Lot", postcode: "", lat: 44.799, lng: 1.618, type: "Aire", badgeClass: "aire", price: "Free", description: "Free aire a 10-minute walk from Rocamadour.", tags: "france dordogne" },
+      { name: "Aire de Sarlat-la-Canéda", place: "Sarlat-la-Canéda", county: "Dordogne", postcode: "", lat: 44.889, lng: 1.217, type: "Aire", badgeClass: "aire", price: "≈ €11 / night", description: "Well-equipped aire in Sarlat.", tags: "france dordogne" },
+      { name: "Camping Le Clos du Lac", place: "Chamonix", county: "Haute-Savoie", postcode: "", lat: 45.924, lng: 6.869, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Campsite at the foot of Mont Blanc.", tags: "france alps" },
+      { name: "Aire de Lac d'Annecy", place: "Annecy", county: "Haute-Savoie", postcode: "", lat: 45.899, lng: 6.129, type: "Aire", badgeClass: "aire", price: "≈ €13 / night", description: "Lakeside aire with mountain views.", tags: "france alps" },
+      { name: "Aire de Gavarnie", place: "Gavarnie", county: "Hautes-Pyrénées", postcode: "", lat: 42.737, lng: -0.010, type: "Aire", badgeClass: "aire", price: "Free in low season", description: "Municipal aire at the gates of the Gavarnie cirque.", tags: "france pyrenees" },
+      { name: "Camping Gorges du Verdon", place: "Castellane", county: "Alpes-de-Haute-Provence", postcode: "", lat: 43.773, lng: 6.227, type: "Campsite", badgeClass: "campsite", price: "€25–€40 / night", description: "Campsite with views over the Verdon canyon.", tags: "france provence" },
+      { name: "Aire de Calais", place: "Calais", county: "Hauts-de-France", postcode: "", lat: 50.967, lng: 1.850, type: "Aire", badgeClass: "aire", price: "€10–€15 / night", description: "Well-known aire by the beach, ten minutes from the port.", tags: "france calais" },
+      { name: "Aire de Dieppe", place: "Dieppe", county: "Normandy", postcode: "", lat: 49.917, lng: 1.083, type: "Aire", badgeClass: "aire", price: "€10–€15 / night", description: "Aire right by the harbour.", tags: "france normandy" },
+      { name: "La Fosse Bleue Librecy", place: "Signy-l'Abbaye", county: "Ardennes", postcode: "", lat: 49.700, lng: 4.417, type: "Aire", badgeClass: "aire", price: "€12–€18 / night", description: "Rated 4.70/5 — a Campercontact Motorhome Pitch of the Year 2026 for France.", tags: "france ardennes" },
+      { name: "Minicamping Pays de Joie", place: "Montalembert", county: "Deux-Sèvres", postcode: "", lat: 46.233, lng: 0.083, type: "Campsite", badgeClass: "campsite", price: "€18–€28 / night", description: "Rated 5.0/5 — a Campercontact Campsite of the Year 2026 for France.", tags: "france deux-sevres" },
+
+      /* ================= SPAIN ================= */
+      { name: "Costa Brava Beach Camp", place: "Platja d'Aro", county: "Girona", postcode: "", lat: 41.817, lng: 3.067, type: "Adults-Only", badgeClass: "adults", price: "€30–€400 / night", description: "Adults-only (18+) glampsite 100 metres from a sandy beach.", tags: "spain catalonia adults" },
+      { name: "Anna Glamping", place: "Anna", county: "Valencia", postcode: "", lat: 39.017, lng: -0.650, type: "Adults-Only", badgeClass: "adults", price: "€30–€150 / night", description: "Includes a dedicated Adults-Only Zone for couples.", tags: "spain valencia adults" },
+      { name: "El Tranquilo", place: "Alicante", county: "Valencia", postcode: "", lat: 38.500, lng: -0.500, type: "Adults-Only", badgeClass: "adults", price: "€20–€30 / night", description: "A peaceful adults-only touring park on the Costa Blanca.", tags: "spain alicante adults" },
+      { name: "Camping Masnou", place: "Barcelona", county: "Catalonia", postcode: "", lat: 41.483, lng: 2.317, type: "Campsite", badgeClass: "campsite", price: "€35–€55 / night", description: "Campsite right on the Mediterranean, 15 km from Barcelona.", tags: "spain catalonia barcelona" },
+      { name: "Camping Cabopino", place: "Marbella", county: "Andalusia", postcode: "", lat: 36.483, lng: -4.750, type: "Campsite", badgeClass: "campsite", price: "€28–€42 / night", description: "Campsite on Cabopino beach, between Málaga and Marbella.", tags: "spain andalusia costa del sol" },
+      { name: "Camping Sopelana", place: "Bilbao", county: "Basque Country", postcode: "", lat: 43.383, lng: -3.000, type: "Campsite", badgeClass: "campsite", price: "€25–€38 / night", description: "Campsite on the cliffs above the Atlantic, 20 km from Bilbao.", tags: "spain basque" },
+      { name: "Camping Itxaspe", place: "Deba", county: "Basque Country", postcode: "", lat: 43.283, lng: -2.350, type: "Campsite", badgeClass: "campsite", price: "€20–€32 / night", description: "Small campsite next to Sakoneta beach.", tags: "spain basque" },
+      { name: "Autocaravaning Palamós", place: "Palamós", county: "Costa Brava", postcode: "", lat: 41.847, lng: 3.129, type: "Aire", badgeClass: "aire", price: "€15–€20 / night", description: "Peaceful, year-round site with full services.", tags: "spain costa brava" },
+      { name: "Área Cabo de Gata Camper Park", place: "Almería", county: "Andalusia", postcode: "", lat: 36.717, lng: -2.200, type: "Aire", badgeClass: "aire", price: "€12–€18 / night", description: "Camper park in the Cabo de Gata natural park.", tags: "spain andalusia" },
+      { name: "Área de Autocaravanas de Marbella", place: "Marbella", county: "Costa del Sol", postcode: "", lat: 36.517, lng: -4.883, type: "Aire", badgeClass: "aire", price: "€15–€20 / night", description: "Well-equipped aire near the beaches of Marbella.", tags: "spain costa del sol" },
+      { name: "MiluCar Camper Area", place: "Málaga", county: "Costa del Sol", postcode: "", lat: 36.721, lng: -4.421, type: "Aire", badgeClass: "aire", price: "€15–€20 / night", description: "Camper area on the edge of Málaga.", tags: "spain costa del sol" },
+      { name: "Camping Bayona Playa", place: "Pontevedra", county: "Galicia", postcode: "", lat: 42.117, lng: -8.850, type: "Campsite", badgeClass: "campsite", price: "€20–€30 / night", description: "Campsite near the beaches of Baiona.", tags: "spain galicia" },
+      { name: "Área de Ribadesella", place: "Ribadesella", county: "Asturias", postcode: "", lat: 43.450, lng: -5.067, type: "Aire", badgeClass: "aire", price: "€10–€15 / night", description: "Aire next to the sea in Ribadesella.", tags: "spain asturias" },
+      { name: "Los Cortijos de Noalejo", place: "Noalejo", county: "Andalusia", postcode: "", lat: 37.533, lng: -3.650, type: "Aire", badgeClass: "aire", price: "€12–€18 / night", description: "Rated 4.94/5 — a Campercontact Motorhome Pitch of the Year 2026 for Spain.", tags: "spain andalusia" },
+      { name: "Camping Benigembla", place: "Benigembla", county: "Valencia", postcode: "", lat: 38.750, lng: -0.100, type: "Campsite", badgeClass: "campsite", price: "€18–€28 / night", description: "Rated 4.94/5 — a Campercontact Campsite of the Year 2026 for Spain.", tags: "spain valencia" },
+
+      /* ================= PORTUGAL ================= */
+      { name: "Área de Serviço Vila Real", place: "Vila Real", county: "Trás-os-Montes", postcode: "", lat: 41.296, lng: -7.746, type: "Aire", badgeClass: "aire", price: "Free / low cost", description: "Convenient stop on the main road.", tags: "portugal north" },
+      { name: "Intermarché Foz do Coa", place: "Foz do Coa", county: "Guarda", postcode: "", lat: 41.080, lng: -7.140, type: "Aire", badgeClass: "aire", price: "Free", description: "Spacious, free parking at the supermarket.", tags: "portugal north" },
+      { name: "Aljezur Camper Park", place: "Aljezur", county: "Algarve", postcode: "", lat: 37.316, lng: -8.803, type: "Aire", badgeClass: "aire", price: "≈ €10 / night", description: "Relaxed camper park near the wild west coast beaches.", tags: "portugal algarve" },
+      { name: "Camping Municipal Forte do Cavalo", place: "Sesimbra", county: "Lisbon", postcode: "", lat: 38.443, lng: -9.101, type: "Campsite", badgeClass: "campsite", price: "€15–€25 / night", description: "Municipal campsite at the western end of Sesimbra.", tags: "portugal lisbon" },
+      { name: "Camping-Car Park Lagos", place: "Lagos", county: "Algarve", postcode: "", lat: 37.100, lng: -8.683, type: "Aire", badgeClass: "aire", price: "€12–€18 / night", description: "New aire with 54 spaces in the Algarve.", tags: "portugal algarve" },
+      { name: "Salema Eco Camp", place: "Salema", county: "Algarve", postcode: "", lat: 37.067, lng: -8.817, type: "Campsite", badgeClass: "campsite", price: "€20–€30 / night", description: "15,000m² eco camp near the beach at Salema.", tags: "portugal algarve" },
+      { name: "Parque de Campismo de Canelas", place: "Armação de Pêra", county: "Algarve", postcode: "", lat: 37.100, lng: -8.367, type: "Campsite", badgeClass: "campsite", price: "€18–€28 / night", description: "Campsite with direct access to the beach.", tags: "portugal algarve" },
+      { name: "Camping de Costa Nova", place: "Costa Nova", county: "Aveiro", postcode: "", lat: 40.617, lng: -8.750, type: "Campsite", badgeClass: "campsite", price: "€20–€30 / night", description: "Campsite with direct access to the beach.", tags: "portugal aveiro" },
+      { name: "Área de Serviço de Penacova", place: "Penacova", county: "Coimbra", postcode: "", lat: 40.267, lng: -8.283, type: "Aire", badgeClass: "aire", price: "€8–€12 / night", description: "Aire with 32 spaces in central Portugal.", tags: "portugal central" },
+
+      /* ================= ITALY ================= */
+      { name: "Agricamping Seregnér", place: "Monzambano", county: "Mantua", postcode: "", lat: 45.383, lng: 10.683, type: "Adults-Only", badgeClass: "adults", price: "€25–€37 / night", description: "Peaceful adults-only agricamping just outside Lake Garda.", tags: "italy lombardy adults" },
+      { name: "Agricampeggio l'Essenza", place: "Brenzone", county: "Verona", postcode: "", lat: 45.700, lng: 10.767, type: "Adults-Only", badgeClass: "adults", price: "€30–€45 / night", description: "Adults-only campsite with spectacular Lake Garda views.", tags: "italy veneto adults" },
+      { name: "Camping Taimi", place: "Bibbona", county: "Tuscany", postcode: "", lat: 43.267, lng: 10.583, type: "Adults-Only", badgeClass: "adults", price: "€25–€40 / night", description: "Adults-only campsite in the Tuscan countryside.", tags: "italy tuscany adults" },
+      { name: "Camping Village Roma", place: "Rome", county: "Lazio", postcode: "", lat: 41.900, lng: 12.450, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Large campsite on the edge of Rome, with shuttle bus to the city centre.", tags: "italy lazio" },
+      { name: "Union Lido", place: "Cavallino-Treporti", county: "Veneto", postcode: "", lat: 45.467, lng: 12.500, type: "Holiday Park", badgeClass: "park", price: "€40–€70 / night", description: "One of Europe's most famous 5-star camping resorts, right on the Venice lagoon beaches.", tags: "italy veneto" },
+      { name: "Camping Ca'Savio", place: "Cavallino-Treporti", county: "Veneto", postcode: "", lat: 45.483, lng: 12.517, type: "Campsite", badgeClass: "campsite", price: "€35–€55 / night", description: "Beachside campsite with ferry access to Venice.", tags: "italy veneto" },
+      { name: "Camping Il Gabbiano", place: "Rome", county: "Lazio", postcode: "", lat: 41.950, lng: 12.400, type: "Campsite", badgeClass: "campsite", price: "€25–€40 / night", description: "Campsite north of Rome, on the road to Lake Bracciano.", tags: "italy lazio" },
+      { name: "Area Sosta Camper Wolkenstein", place: "Wolkenstein", county: "Dolomites", postcode: "", lat: 46.556, lng: 11.766, type: "Aire", badgeClass: "aire", price: "≈ €15–€20 / night", description: "Simple but spectacular aire in the Dolomites.", tags: "italy dolomites" },
+      { name: "Kemp Sass Dlacia", place: "Val Badia", county: "Dolomites", postcode: "", lat: 46.538, lng: 11.904, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Well-equipped campsite for hiking in the Puez-Odle group.", tags: "italy dolomites" },
+      { name: "Kemp Barco Reale", place: "Lamporecchio", county: "Tuscany", postcode: "", lat: 43.833, lng: 10.883, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Campsite between Florence and Pisa.", tags: "italy tuscany" },
+      { name: "Area Sosta San Gimignano", place: "San Gimignano", county: "Tuscany", postcode: "", lat: 43.467, lng: 11.050, type: "Aire", badgeClass: "aire", price: "€15–€20 / night", description: "Well-located aire just 2 km from the towers of San Gimignano.", tags: "italy tuscany" },
+      { name: "Area Sosta Vico del Gargano", place: "Vico del Gargano", county: "Apulia", postcode: "", lat: 41.883, lng: 15.950, type: "Aire", badgeClass: "aire", price: "€20–€35 / night", description: "Aire in the Gargano national park.", tags: "italy apulia" },
+      { name: "Agricampeggio da Bery", place: "Vallelaghi", county: "Trentino", postcode: "", lat: 46.033, lng: 10.933, type: "Working Farm", badgeClass: "farm", price: "€15–€22 / night", description: "Rated 4.90/5 — a Campercontact Motorhome Pitch of the Year 2026 for Italy.", tags: "italy trentino farm" },
+      { name: "Camping La Luna", place: "Esanatoglia", county: "Marche", postcode: "", lat: 43.250, lng: 12.950, type: "Campsite", badgeClass: "campsite", price: "€18–€28 / night", description: "Rated 5.0/5 — a Campercontact Campsite of the Year 2026 for Italy.", tags: "italy marche" },
+
+      /* ================= GERMANY ================= */
+      { name: "BurgStadt CampingPark", place: "Kastellaun", county: "Rhineland-Palatinate", postcode: "", lat: 50.067, lng: 7.450, type: "Adults-Only", badgeClass: "adults", price: "€25–€35 / night", description: "Adults-only (14+) campsite in the Hunsrück.", tags: "germany rhineland-palatinate adults" },
+      { name: "Camping Neudahner Weiher", place: "Dahn", county: "Rhineland-Palatinate", postcode: "", lat: 49.150, lng: 7.783, type: "Adults-Only", badgeClass: "adults", price: "€22–€32 / night", description: "Adults-only campsite in the Palatinate Forest.", tags: "germany rhineland-palatinate adults" },
+      { name: "7 Täler Campingplatz", place: "Dietfurt", county: "Bavaria", postcode: "", lat: 49.033, lng: 11.583, type: "Adults-Only", badgeClass: "adults", price: "€20–€30 / night", description: "Adults-only campsite in the Altmühltal nature park.", tags: "germany bavaria adults" },
+      { name: "Wald- und Naturcampingplatz am Tonsee Süd", place: "Brandenburg", county: "Brandenburg", postcode: "", lat: 52.167, lng: 13.500, type: "Adults-Only", badgeClass: "adults", price: "€18–€28 / night", description: "Adults-only forest campsite on the shores of Tonsee Süd.", tags: "germany brandenburg adults" },
+      { name: "Campingplatz am Großen Wentowsee", place: "Zehdenick", county: "Brandenburg", postcode: "", lat: 53.017, lng: 13.333, type: "Adults-Only", badgeClass: "adults", price: "€20–€30 / night", description: "Adults-only (14+) campsite directly on a lake.", tags: "germany brandenburg adults" },
+      { name: "Mosel Camping Bernkastel", place: "Bernkastel-Kues", county: "Rhineland-Palatinate", postcode: "", lat: 49.917, lng: 7.067, type: "Adults-Only", badgeClass: "adults", price: "€22–€32 / night", description: "Adults-only campsite on the Moselle river.", tags: "germany rhineland-palatinate adults" },
+      { name: "Camping Hopfensee", place: "Füssen", county: "Bavaria", postcode: "", lat: 47.583, lng: 10.683, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Lakeside campsite in Bavaria with views towards the Allgäu.", tags: "germany bavaria" },
+      { name: "Camping Prümtal", place: "Oberweis", county: "Rhineland-Palatinate", postcode: "", lat: 49.983, lng: 6.417, type: "Campsite", badgeClass: "campsite", price: "€20–€30 / night", description: "Riverside campsite in the Eifel.", tags: "germany rhineland-palatinate" },
+      { name: "Campingpark Bad Dürkheim", place: "Bad Dürkheim", county: "Rhineland-Palatinate", postcode: "", lat: 49.467, lng: 8.167, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Campsite in the heart of the Palatinate wine region.", tags: "germany rhineland-palatinate" },
+      { name: "Camping Wirthshof", place: "Markdorf", county: "Baden-Württemberg", postcode: "", lat: 47.717, lng: 9.383, type: "Campsite", badgeClass: "campsite", price: "€30–€45 / night", description: "Campsite near Lake Constance.", tags: "germany baden-wurttemberg" },
+      { name: "Reil motorhome parking area", place: "Reil", county: "Mosel", postcode: "56861", lat: 50.016, lng: 7.183, type: "Stellplatz", badgeClass: "stellplatz", price: "€14 / day + €5 for electricity", description: "70 marked spaces directly by the Moselle.", tags: "germany mosel" },
+      { name: "Wohnmobilstellplatz Enkirch", place: "Enkirch", county: "Mosel", postcode: "", lat: 49.983, lng: 7.133, type: "Stellplatz", badgeClass: "stellplatz", price: "€12 / night (plus tourist tax)", description: "Large site for 200 vans, directly on the Moselle.", tags: "germany mosel" },
+      { name: "Goldene Meile", place: "Remagen", county: "Rhine", postcode: "53424", lat: 50.579, lng: 7.231, type: "Stellplatz", badgeClass: "stellplatz", price: "€15 / night", description: "Great stop right on the Rhine.", tags: "germany rhine" },
+      { name: "WOMO-Stellplatz Eltern", place: "Haselünne", county: "Lower Saxony", postcode: "", lat: 52.667, lng: 7.483, type: "Stellplatz", badgeClass: "stellplatz", price: "€10–€15 / night", description: "Rated 4.88/5 — a Campercontact Motorhome Pitch of the Year 2026 for Germany.", tags: "germany lower saxony" },
+      { name: "Ferienhof Rhön Jahn", place: "Armenhof", county: "Bavaria", postcode: "", lat: 50.383, lng: 10.033, type: "Working Farm", badgeClass: "farm", price: "€18–€25 / night", description: "Rated 5.0/5 — a Campercontact Campsite of the Year 2026 for Germany.", tags: "germany bavaria farm" },
+
+      /* ================= NETHERLANDS, BELGIUM & LUXEMBOURG ================= */
+      { name: "Hof van Hulsen", place: "Nijverdal", county: "Overijssel", postcode: "", lat: 52.367, lng: 6.467, type: "Adults-Only", badgeClass: "adults", price: "€20–€28 / night", description: "Small adults-only Overijssel site with a fruit orchard.", tags: "netherlands overijssel adults" },
+      { name: "Camping Lekker Buiten", place: "Reusel", county: "North Brabant", postcode: "", lat: 51.350, lng: 5.167, type: "Adults-Only", badgeClass: "adults", price: "€22–€28 / night", description: "Adults-only campsite in the peaceful Peel region.", tags: "netherlands north brabant adults" },
+      { name: "Minicamping Mortels Buiten", place: "De Stippelberg", county: "North Brabant", postcode: "", lat: 51.567, lng: 5.850, type: "Adults-Only", badgeClass: "adults", price: "€20–€26 / night", description: "Adults-only campsite in a peaceful, wooded area.", tags: "netherlands north brabant adults" },
+      { name: "Camping Zeeuwse Landhoeve", place: "Brouwershaven", county: "Zeeland", postcode: "", lat: 51.733, lng: 3.900, type: "Adults-Only", badgeClass: "adults", price: "€22–€30 / night", description: "Lovely adults-only campsite close to the Zeeland coast.", tags: "netherlands zeeland adults" },
+      { name: "Røstig", place: "Kedichem", county: "Utrecht", postcode: "", lat: 51.867, lng: 5.050, type: "Adults-Only", badgeClass: "adults", price: "€25–€35 / night", description: "Adults-only campsite in the green heart of the Netherlands.", tags: "netherlands utrecht adults" },
+      { name: "Landgoed De Eendracht", place: "Bruinisse", county: "Zeeland", postcode: "", lat: 51.667, lng: 4.100, type: "Adults-Only", badgeClass: "adults", price: "€20–€30 / night", description: "Offers 'relaxing peace for adults only' with huge pitches.", tags: "netherlands zeeland adults" },
+      { name: "Camping De Drie Provinciën", place: "Dwingeloo", county: "Drenthe", postcode: "", lat: 52.833, lng: 6.383, type: "Adults-Only", badgeClass: "adults", price: "€20–€28 / night", description: "A 50+ campsite for those travelling without children.", tags: "netherlands drenthe adults" },
+      { name: "Camping In 't Niet", place: "Susteren", county: "Limburg", postcode: "", lat: 51.083, lng: 5.867, type: "Adults-Only", badgeClass: "adults", price: "€20–€28 / night", description: "Adults-only since 2019, in the Meuse valley.", tags: "netherlands limburg adults" },
+      { name: "Camping De Paal", place: "Bergeijk", county: "North Brabant", postcode: "", lat: 51.317, lng: 5.350, type: "Holiday Park", badgeClass: "park", price: "€35–€55 / night", description: "One of the Netherlands' most famous 5-star family campsites.", tags: "netherlands north brabant" },
+      { name: "Duinrell", place: "Wassenaar", county: "South Holland", postcode: "", lat: 52.133, lng: 4.383, type: "Holiday Park", badgeClass: "park", price: "€30–€50 / night", description: "Big family holiday park with its own theme park and indoor waterpark.", tags: "netherlands south holland" },
+      { name: "Camping Zeeburg", place: "Amsterdam", county: "North Holland", postcode: "", lat: 52.367, lng: 4.967, type: "Campsite", badgeClass: "campsite", price: "€25–€40 / night", description: "The most convenient campsite for central Amsterdam.", tags: "netherlands north holland" },
+      { name: "Camping de Kleine Wielen", place: "Leeuwarden", county: "Friesland", postcode: "", lat: 53.200, lng: 5.800, type: "Campsite", badgeClass: "campsite", price: "€25–€35 / night", description: "Lakeside campsite near Leeuwarden.", tags: "netherlands friesland" },
+      { name: "Parking Europakade", place: "Tolkamer", county: "Gelderland", postcode: "6916 BG", lat: 51.867, lng: 6.117, type: "Stellplatz", badgeClass: "stellplatz", price: "≈ €10–€15 / night", description: "Motorhome stopover on the Rhine bank.", tags: "netherlands rhine" },
+      { name: "Camperplaats bij d'n Bor", place: "Esbeek", county: "North Brabant", postcode: "", lat: 51.467, lng: 5.133, type: "Stellplatz", badgeClass: "stellplatz", price: "€10–€15 / night", description: "Rated 5.0/5 — a Campercontact Motorhome Pitch of the Year 2026 for the Netherlands.", tags: "netherlands north brabant" },
+      { name: "Camping Tjaerdastate", place: "Rinsumageast", county: "Friesland", postcode: "", lat: 53.283, lng: 5.950, type: "Campsite", badgeClass: "campsite", price: "€18–€28 / night", description: "Rated 5.0/5 — a Campercontact Campsite of the Year 2026 for the Netherlands.", tags: "netherlands friesland" },
+      { name: "Stellplatz Bad Aachen", place: "Aachen", county: "North Rhine-Westphalia", postcode: "", lat: 50.776, lng: 6.083, type: "Stellplatz", badgeClass: "stellplatz", price: "≈ €12–€18 / night", description: "Campervan site with 46 pitches, 1.5km from Aachen centre.", tags: "belgium germany" },
+      { name: "Camperplaats Goedgezind", place: "Laakdal", county: "Antwerp", postcode: "", lat: 51.083, lng: 4.950, type: "Stellplatz", badgeClass: "stellplatz", price: "€12–€18 / night", description: "Rated 4.91/5 — a Campercontact Motorhome Pitch of the Year 2026 for Belgium.", tags: "belgium antwerp" },
+      { name: "Camping Biej Bôkke", place: "Kinrooi", county: "Limburg", postcode: "", lat: 51.150, lng: 5.750, type: "Campsite", badgeClass: "campsite", price: "€20–€30 / night", description: "Rated 5.0/5 — a Campercontact Campsite of the Year 2026 for Belgium.", tags: "belgium limburg" },
+      { name: "Camping Borrey", place: "Puurs-Sint-Amands", county: "Antwerp", postcode: "", lat: 51.067, lng: 4.283, type: "Adults-Only", badgeClass: "adults", price: "€18–€26 / night", description: "Pop-up adults-only campsite designed for festivalgoers.", tags: "belgium antwerp adults" },
+      { name: "L'Îlot Vert", place: "Thimister-Clermont", county: "Liège", postcode: "", lat: 50.667, lng: 5.867, type: "Adults-Only", badgeClass: "adults", price: "€25–€40 / night", description: "Adults-only luxury dome tent in Wallonia.", tags: "belgium liege adults" },
+      { name: "Camping car spaces Remich", place: "Remich", county: "Remich", postcode: "5405", lat: 49.550, lng: 6.367, type: "Aire", badgeClass: "aire", price: "≈ €20–€30 / night", description: "Motorhome stopover in Luxembourg with 26 places.", tags: "luxembourg remich" },
+      { name: "Gritt", place: "Ingeldorf", county: "Diekirch", postcode: "9161", lat: 49.867, lng: 6.167, type: "Campsite", badgeClass: "campsite", price: "≈ €25–€40 / night", description: "Riverside site opposite Ingeldorf. Large, fully serviced motorhome pitches.", tags: "luxembourg diekirch" },
+
+      /* ================= SWITZERLAND & AUSTRIA ================= */
+      { name: "TCS Camping Buochs Vierwaldstättersee", place: "Buochs", county: "Nidwalden", postcode: "", lat: 46.974, lng: 8.416, type: "Campsite", badgeClass: "campsite", price: "≈ CHF 30–CHF 45 / night", description: "Four-star campsite directly on the shore of Lake Lucerne.", tags: "switzerland alps" },
+      { name: "50plus Campingpark Fisching", place: "Weißkirchen in Steiermark", county: "Styria", postcode: "", lat: 47.150, lng: 14.733, type: "Adults-Only", badgeClass: "adults", price: "€24.50–€29.40 / night", description: "Award-winning adults-only (50+) campsite in the heart of Styria's Murtal.", tags: "austria styria adults" },
+      { name: "Camping Linz", place: "Linz", county: "Upper Austria", postcode: "", lat: 48.306, lng: 14.286, type: "Campsite", badgeClass: "campsite", price: "≈ €25–€35 / night", description: "Commercial campsite next to a lake.", tags: "austria" },
+
+      /* ================= SLOVENIA & CROATIA ================= */
+      { name: "Camper stop Zgornji Leskovec", place: "Zgornji Leskovec", county: "Podravska", postcode: "", lat: 46.417, lng: 15.883, type: "Aire", badgeClass: "aire", price: "≈ €10–€15 / night", description: "Camper stop near the Croatian border.", tags: "slovenia balkans" },
+      { name: "Camping Bled", place: "Bled", county: "Upper Carniola", postcode: "", lat: 46.368, lng: 14.114, type: "Campsite", badgeClass: "campsite", price: "≈ €30–€45 / night", description: "Well-equipped campsite near Lake Bled.", tags: "slovenia balkans" },
+      { name: "Parking Benetic", place: "Vinica", county: "Southeast Slovenia", postcode: "", lat: 45.467, lng: 15.250, type: "Aire", badgeClass: "aire", price: "≈ €10–€15 / night", description: "Large, basic stopover near the Zagreb–Rijeka motorway.", tags: "slovenia balkans" },
+      { name: "Camping Omisalj", place: "Omisalj, Krk", county: "Primorje-Gorski Kotar", postcode: "", lat: 45.217, lng: 14.550, type: "Adults-Only", badgeClass: "adults", price: "€30–€50 / night", description: "Adults-only campsite on the island of Krk.", tags: "croatia krk adults" },
+      { name: "San Servolo Wellness Camping & Resort", place: "Buje", county: "Istria", postcode: "", lat: 45.417, lng: 13.667, type: "Adults-Only", badgeClass: "adults", price: "€35–€55 / night", description: "Adults-only wellness-focused camping resort in Istria.", tags: "croatia istria adults" },
+      { name: "Camping Abeille Maison Glamping Resort Zlatni Rat", place: "Brač", county: "Dalmatia", postcode: "", lat: 43.283, lng: 16.550, type: "Adults-Only", badgeClass: "adults", price: "€40–€80 / night", description: "Adults-only glamping resort by Zlatni Rat on Brač.", tags: "croatia dalmatia adults" },
+      { name: "Autokamp Zaton", place: "Zaton", county: "Dalmatia", postcode: "", lat: 44.117, lng: 15.233, type: "Campsite", badgeClass: "campsite", price: "≈ €30–€50 / night", description: "Large campsite near Zadar.", tags: "croatia balkans" },
+      { name: "Arena Stoja Campsite", place: "Pula", county: "Istria", postcode: "", lat: 44.867, lng: 13.833, type: "Campsite", badgeClass: "campsite", price: "€25–€45 / night", description: "Large campsite near Pula with direct beach access.", tags: "croatia istria" },
+
+      /* ================= SCANDINAVIA ================= */
+      { name: "Storviksanden Camping", place: "Storvik", county: "Nordland", postcode: "", lat: 67.000, lng: 14.000, type: "Campsite", badgeClass: "campsite", price: "≈ NOK 250–350 / night", description: "Idyllic campsite by the fjord in Nordland.", tags: "norway scandi" },
+      { name: "Sandefjord Bobilhavn", place: "Sandefjord", county: "Vestfold", postcode: "3208", lat: 59.131, lng: 10.223, type: "Aire", badgeClass: "aire", price: "≈ NOK 200–300 / night", description: "Motorhome stopover at the marina.", tags: "norway scandi" },
+      { name: "Larvik motorhome area", place: "Larvik", county: "Vestfold", postcode: "3296", lat: 59.053, lng: 10.027, type: "Aire", badgeClass: "aire", price: "≈ NOK 150–250 / night", description: "Small, peaceful site with 4 campervan pitches.", tags: "norway scandi" },
+      { name: "Møn Klint Camp", place: "Møn", county: "Zealand", postcode: "", lat: 54.967, lng: 12.533, type: "Campsite", badgeClass: "campsite", price: "≈ €25–€40 / night", description: "Campsite near the dramatic white cliffs of Møn Klint.", tags: "denmark scandi" },
+      { name: "Tyngsjö Vildmark Camping", place: "Tyngsjö", county: "Dalarna", postcode: "", lat: 60.133, lng: 14.500, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Wilderness campsite in the Swedish forests.", tags: "sweden scandi" },
+      { name: "Arctic Camp Jokkmokk", place: "Jokkmokk", county: "Norrbotten", postcode: "", lat: 66.600, lng: 19.833, type: "Campsite", badgeClass: "campsite", price: "≈ €20–€30 / night", description: "Arctic campsite in Swedish Lapland.", tags: "sweden scandi" },
+      { name: "Lappeasuando", place: "Near Gällivare", county: "Norrbotten", postcode: "", lat: 67.133, lng: 20.650, type: "Aire", badgeClass: "aire", price: "≈ €10–€20 / night", description: "Simple stopover on the Swedish Arctic route.", tags: "sweden scandi" },
+      { name: "Muonio", place: "Muonio", county: "Lapland", postcode: "", lat: 67.950, lng: 23.683, type: "Aire", badgeClass: "aire", price: "≈ €10–€18 / night", description: "Finnish Lapland stopover.", tags: "finland scandi" },
+      { name: "Enontekio", place: "Enontekiö", county: "Lapland", postcode: "", lat: 68.383, lng: 23.633, type: "Aire", badgeClass: "aire", price: "≈ €10–€18 / night", description: "Remote Finnish Lapland stopover.", tags: "finland scandi" },
+      { name: "Kautokeino", place: "Kautokeino", county: "Finnmark", postcode: "", lat: 69.000, lng: 23.033, type: "Aire", badgeClass: "aire", price: "≈ €10–€20 / night", description: "Norwegian Finnmark stopover in Sámi country.", tags: "norway scandi" },
+      { name: "Vesterålen", place: "Vesterålen", county: "Nordland", postcode: "", lat: 68.700, lng: 15.400, type: "Aire", badgeClass: "aire", price: "≈ €15–€25 / night", description: "Stopover in the Vesterålen archipelago.", tags: "norway scandi" },
+      { name: "Sørstraumen", place: "Sørstraumen", county: "Troms", postcode: "", lat: 69.783, lng: 21.050, type: "Aire", badgeClass: "aire", price: "≈ €10–€20 / night", description: "Quiet stopover in northern Norway.", tags: "norway scandi" },
+
+      /* ================= EASTERN EUROPE ================= */
+      { name: "Cvika camping", place: "Kimle", county: "Győr-Moson-Sopron", postcode: "9181", lat: 47.817, lng: 17.467, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Small Hungarian campsite near the motorway, 15 places.", tags: "hungary eastern-europe" },
+      { name: "Camping Cazanele Dunarii", place: "Eșelnița", county: "Mehedinți", postcode: "227195", lat: 44.667, lng: 22.333, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Campsite near the Iron Gates on the Danube.", tags: "romania eastern-europe" },
+      { name: "BOHO camp Pecineaga", place: "Pecineaga", county: "Constanța", postcode: "", lat: 43.867, lng: 28.500, type: "Campsite", badgeClass: "campsite", price: "≈ €20–€35 / night", description: "Bohemian campsite near the Black Sea coast.", tags: "romania eastern-europe" },
+      { name: "Camperstop Shabla", place: "Shabla", county: "Dobrich", postcode: "", lat: 43.533, lng: 28.533, type: "Aire", badgeClass: "aire", price: "≈ €10–€18 / night", description: "Private motorhome site near the E87 coastal road.", tags: "bulgaria eastern-europe" },
+      { name: "Kamping Kromidovo", place: "Kromidovo", county: "Blagoevgrad", postcode: "2871", lat: 41.467, lng: 23.367, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Small campsite and guesthouse near the Greek border.", tags: "bulgaria eastern-europe" },
+      { name: "Parking Voyvodovo", place: "Voivodovo", county: "Haskovo", postcode: "3332", lat: 41.933, lng: 25.650, type: "Aire", badgeClass: "aire", price: "≈ €8–€12 / night", description: "Motorhome stopover with 20 places.", tags: "bulgaria eastern-europe" },
+      { name: "Camping Pócsmegyer", place: "Pócsmegyer", county: "Pest", postcode: "1113", lat: 47.517, lng: 19.050, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Medium-sized campsite near the Danube, easy reach of Budapest.", tags: "hungary eastern-europe" },
+      { name: "Camping in Piešťany", place: "Piešťany", county: "Trnava", postcode: "", lat: 48.583, lng: 17.833, type: "Campsite", badgeClass: "campsite", price: "≈ €18–€28 / night", description: "Campsite 1km from the Slovak spa town of Piešťany.", tags: "slovakia eastern-europe" },
+
+      /* ================= GREECE ================= */
+      { name: "Nashos Kamp Alanı & Restaurant", place: "Athens", county: "Attica", postcode: "", lat: 37.983, lng: 23.733, type: "Campsite", badgeClass: "campsite", price: "≈ €20–€30 / night", description: "Campsite and restaurant in the Athens area.", tags: "greece attica" },
+      { name: "Mykonos Kamp Alanı", place: "Mykonos", county: "South Aegean", postcode: "", lat: 37.450, lng: 25.333, type: "Campsite", badgeClass: "campsite", price: "≈ €25–€45 / night", description: "One of the few affordable places to stay on Mykonos.", tags: "greece cyclades" },
+      { name: "To Relax and Enjoy Kamp", place: "Near Athens", county: "Attica", postcode: "", lat: 37.900, lng: 23.900, type: "Campsite", badgeClass: "campsite", price: "≈ €18–€28 / night", description: "Quiet campsite near Athens.", tags: "greece attica" },
+
+      /* ================= TURKEY ================= */
+      { name: "Star One Karavan Park", place: "Çatalca", county: "Istanbul", postcode: "", lat: 41.133, lng: 28.467, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Excellent campsite near Istanbul — a logical first stop from Greece or Bulgaria.", tags: "turkey istanbul" },
+      { name: "Sahil Kamp Istanbul", place: "Istanbul", county: "Istanbul", postcode: "", lat: 41.000, lng: 28.967, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Coastal campsite in Istanbul.", tags: "turkey istanbul" },
+      { name: "Safranbolu Caravan Camping", place: "Safranbolu", county: "Karabük", postcode: "", lat: 41.250, lng: 32.683, type: "Campsite", badgeClass: "campsite", price: "≈ €10–€18 / night", description: "Campsite in the UNESCO-listed Ottoman town of Safranbolu.", tags: "turkey black sea" },
+      { name: "Assuva Camping", place: "Ayvacık, Çanakkale", county: "Çanakkale", postcode: "", lat: 39.600, lng: 26.400, type: "Campsite", badgeClass: "campsite", price: "≈ €12–€20 / night", description: "Campsite on the Aegean coast near ancient Troy.", tags: "turkey aegean" },
+      { name: "Kamp Alanı Panorama", place: "Kemer, Antalya", county: "Antalya", postcode: "", lat: 36.600, lng: 30.567, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Campsite with panoramic views on the Turkish Riviera.", tags: "turkey mediterranean" },
+      { name: "Bozcaada", place: "Bozcaada", county: "Çanakkale", postcode: "17680", lat: 39.833, lng: 26.050, type: "Campsite", badgeClass: "campsite", price: "≈ €15–€25 / night", description: "Campsite on the island of Bozcaada, with beaches and vineyards.", tags: "turkey aegean" }
+    ];
+
+    const CATEGORIES = [
+      { key: 'pub',      label: '🍺 Pub Stopovers' },
+      { key: 'canal',    label: '🛶 Canalside Pubs' },
+      { key: 'farm',     label: '🌾 Working Farms & Farm Campsites' },
+      { key: 'park',     label: '🏕️ Holiday Parks' },
+      { key: 'adults',   label: '🍷 Adults-Only Campsites' },
+      { key: 'campsite', label: '⛺ Campsites' },
+      { key: 'aire',     label: '🅿️ Aires & Stopovers' },
+      { key: 'stellplatz', label: '🇩🇪 Stellplatz' },
+      { key: 'wild',     label: '🌿 Wild Camping' }
+    ];
+
+    let userLat = null, userLng = null, locationReady = false;
+    let activeCategory = 'all';
+
+    const searchInput  = document.getElementById('stopSearch');
+    const radiusSelect = document.getElementById('radiusSelect');
+    const searchResults= document.getElementById('searchResults');
+    const searchStatus = document.getElementById('searchStatus');
+    const locationBtn  = document.getElementById('useLocationBtn');
+    const catChips     = document.getElementById('catChips');
+
+    catChips.innerHTML =
+      `<button class="chip active" data-cat="all">All</button>` +
+      CATEGORIES.map(c => `<button class="chip" data-cat="${c.key}">${c.label}</button>`).join('');
+
+    catChips.addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      activeCategory = btn.dataset.cat;
+      catChips.querySelectorAll('.chip').forEach(c =>
+        c.classList.toggle('active', c === btn)
+      );
+      renderSearchResults();
+    });
+
+    const JUMPS = {
+      uk:              'uk',
+      ireland:         'ireland',
+      france:          'france',
+      spain:           'spain',
+      portugal:        'portugal',
+      italy:           'italy',
+      germany:         'germany',
+      benelux:         'netherlands belgium luxembourg',
+      switzerland:     'switzerland',
+      austria:         'austria',
+      slovenia:        'slovenia',
+      croatia:         'croatia',
+      scandinavia:     'scandi',
+      'eastern-europe':'eastern-europe',
+      greece:          'greece',
+      turkey:          'turkey'
+    };
+
+    document.querySelectorAll('[data-jump]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const term = JUMPS[a.dataset.jump] || '';
+        searchInput.value = term;
+        activeCategory = 'all';
+        catChips.querySelectorAll('.chip').forEach(c =>
+          c.classList.toggle('active', c.dataset.cat === 'all')
+        );
+        renderSearchResults();
+        document.querySelector('.search-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+
+    /* ============================================================
+       RENDER WILD CAMPING GRID
+       ============================================================ */
+    const wildGrid = document.getElementById('wildCampingGrid');
+    wildGrid.innerHTML = wildCampingSpots.map(s => `
+      <div class="stopover-card">
+        <span class="type-badge ${s.badgeClass}">${s.type}</span>
+        <h3>${s.name}</h3>
+        <div class="location">${s.place}</div>
+        <p>${s.description}</p>
+        <div class="stopover-foot">
+          <span class="price">${s.price}</span>
+          <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + ', ' + s.place)}" target="_blank" rel="noopener noreferrer">Map & details →</a>
+        </div>
+      </div>
+    `).join('');
+
+    /* ============================================================
+       SEARCH + RENDER STOPOVERS
+       ============================================================ */
+    function haversineMiles(lat1, lon1, lat2, lon2) {
+      const R = 3958.8;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+      return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    }
+
+    function mapUrlFor(s) {
+      if (s.url) return s.url;
+      const q = encodeURIComponent(s.name + ', ' + s.place + ', ' + (s.county || '') + ', Europe');
+      return 'https://www.google.com/maps/search/?api=1&query=' + q;
+    }
+
+    function renderSearchResults() {
+      const term = searchInput.value.trim().toLowerCase();
+      const radius = Number(radiusSelect.value);
+      const anyDistance = radius >= 99999;
+      const radiusLabel = anyDistance ? 'any distance' : `within ${radius.toLocaleString()} miles`;
+
+      let filtered = allStopovers.filter(s => {
+        if (activeCategory !== 'all' && s.badgeClass !== activeCategory) return false;
+        if (!term) return true;
+        const haystack = (s.name + ' ' + s.place + ' ' + s.county + ' ' + (s.postcode || '') + ' ' + (s.tags || '')).toLowerCase();
+        return haystack.includes(term);
+      });
+
+      if (locationReady) {
+        filtered = filtered
+          .map(s => ({ ...s, distance: haversineMiles(userLat, userLng, s.lat, s.lng) }))
+          .filter(s => anyDistance || s.distance <= radius)
+          .sort((a, b) => a.distance - b.distance);
+        searchStatus.textContent = `Showing ${filtered.length} stopover${filtered.length === 1 ? '' : 's'} ${radiusLabel} of your location${term ? ` matching "${searchInput.value}"` : ''}.`;
+      } else {
+        filtered = filtered.map(s => ({ ...s, distance: null }));
+        searchStatus.textContent = `Showing ${filtered.length} stopover${filtered.length === 1 ? '' : 's'}${activeCategory !== 'all' ? ' in this category' : ''}${term ? ` matching "${searchInput.value}"` : ''}. Use my location to sort by distance.`;
+      }
+
+      if (filtered.length === 0) {
+        searchResults.innerHTML = '<p style="color:var(--muted); font-size:0.9rem; margin-top:1.5rem;">No stopovers found. Try a different search, category, or widen the radius.</p>';
+        return;
+      }
+
+      const groups = {};
+      filtered.forEach(s => {
+        (groups[s.badgeClass] = groups[s.badgeClass] || []).push(s);
+      });
+
+      let html = '';
+      CATEGORIES.forEach(cat => {
+        const list = groups[cat.key];
+        if (!list || list.length === 0) return;
+        html += `
+          <div class="cat-group" id="cat-${cat.key}">
+            <div class="cat-group-head">
+              <h3>${cat.label}</h3>
+              <span class="count">${list.length} ${list.length === 1 ? 'spot' : 'spots'}</span>
+            </div>
+            <div class="stopover-grid">
+              ${list.map(s => `
+                <div class="stopover-card">
+                  <span class="type-badge ${s.badgeClass}">${s.type}</span>
+                  <h3>${s.name}</h3>
+                  <div class="location">${s.place}${s.postcode ? ' (' + s.postcode + ')' : ''}${s.distance != null ? ' · ' + s.distance.toFixed(1) + ' mi' : ''}</div>
+                  <p>${s.description}</p>
+                  <div class="stopover-foot">
+                    <span class="price">${s.price}</span>
+                    <a class="map-link" href="${mapUrlFor(s)}" target="_blank" rel="noopener noreferrer">Map & details →</a>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      searchResults.innerHTML = html;
+    }
+
+    function requestLocation() {
+      if (!navigator.geolocation) {
+        searchStatus.textContent = 'Geolocation is not supported by your browser.';
+        return;
+      }
+      searchStatus.textContent = 'Getting your location...';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          userLat = pos.coords.latitude;
+          userLng = pos.coords.longitude;
+          locationReady = true;
+          renderSearchResults();
+        },
+        (err) => {
+          searchStatus.textContent = 'Could not get your location. Please allow location access and try again.';
+          console.warn(err);
+        },
+        { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 }
+      );
+    }
+
+    locationBtn.addEventListener('click', requestLocation);
+    searchInput.addEventListener('input', renderSearchResults);
+    radiusSelect.addEventListener('change', renderSearchResults);
+
+    renderSearchResults();
+
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => { navLinks.classList.remove('open'); });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    let bgPlayer;
+    const MUSIC_VIDEO_ID = '3mIdGvVYXpc';
+
+    function onYouTubeIframeAPIReady() {
+      bgPlayer = new YT.Player('bg-music-player', {
+        videoId: MUSIC_VIDEO_ID,
+        playerVars: { autoplay: 1, mute: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1, playsinline: 1 },
+        events: { onReady: (event) => { event.target.playVideo(); } }
+      });
+    }
+
+    function unmuteMusic() {
+      if (bgPlayer && typeof bgPlayer.unMute === 'function') {
+        bgPlayer.unMute();
+        bgPlayer.setVolume(35);
+        if (typeof bgPlayer.seekTo === 'function') bgPlayer.seekTo(0);
+        bgPlayer.playVideo();
+      }
+      const prompt = document.getElementById('music-prompt');
+      if (prompt) {
+        prompt.style.opacity = '0';
+        setTimeout(() => prompt.remove(), 400);
+      }
+    }
+
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+
+    document.body.addEventListener('click', unmuteMusic, { once: true });
+    document.body.addEventListener('touchstart', unmuteMusic, { once: true });
+  </script>
+</body>
+</html>
